@@ -1,0 +1,34 @@
+                    1 Sobre a Pesquisa
+Sejam bem-vindos ao State of Data Brazil 2021, o maior e mais completo panorama sobre o mercado de trabalho brasileiro na área de dados. Veja mais detalhes no site da pesquisa: www.stateofdata.com.br - No site da pesquisa você também encontra um relatório completo onde exploramos esse dataset e chegamos a conclusões interessantes sobre o mercado de trabalho brasileiro na área de dados.
+
+A presente pesquisa é o resultado de um esforço conjunto da Data Hackers, a maior comunidade de dados do Brasil, e da Bain & Company, consultoria global que ajuda empresas e organizações a promover mudanças que definam o futuro dos negócios, para mapear o mercado de trabalho de dados no Brasil.
+
+A pesquisa foi realizada entre 18 de outubro de 2021 e 6 de dezembro de 2021 através de um questionário online e reuniu indicadores relacionados a perfil demográfico, formação, atuação no setor, remuneração, rotatividade e fatores de satisfação no ambiente de trabalho, incluindo o impacto do trabalho remoto nas preferências profissionais de 2.645 respondentes de todo o Brasil. A amostra reflete a visão de variados papéis de atuação em empresas, como os de analista de dados, cientista de dados e engenheiro de dados, bem como diferentes perfis de experiência profissional, incluindo analistas júnior, pleno, sênior e gestores.
+
+Gostaríamos de agradecer a toda a comunidade Data Hackers e a todos os parceiros que nos apoiaram durante a pesquisa, incluindo André Sionek, Karine Lago, Canal Let's Data, Canal Programação Dinâmica, Canal do Mario Filho, Alura, Canal Estatidados e professora Fernanda Maciel, sem o apoio de vocês nunca teríamos chegado a uma pesquisa tão completa e abrangente.
+
+2 Sobre o processamento e anonimização dos dados
+O dataset foi anonimizado com o objetivo de garantir a privacidade dos respondentes, para isso foi necessário em alguns casos remover outliers que poderiam identificar o entrevistado e, portanto, nem todos os dados coletados na pesquisa estarão disponíveis aqui. Estados com menor incidência de resposta, como aqueles das regiões Norte, terão apenas sua região indicada no dataset, também como consequência do processo de anonimização, o mesmo aconteceu em algumas outras perguntas.
+
+As perguntas cujas respostas são multi-valoradas ocupam mais de uma coluna no dataset. Portanto, para diferenciar quais colunas pertencem a quais perguntas, cada coluna é identificada com uma tupla. Sendo o primeiro identificador o da pergunta, e, no caso de várias respostas, o segundo identificador referencia a alternativa escolhida. As perguntas mapeadas são mostradas abaixo (lembrando que algumas foram removidas e outras tiveram alguns outliers transformados/apagados no processo de anonimização)
+
+3 Sobre os dados da Pesquisa
+O questionário foi dividido em 9 partes, e dentro de cada uma das partes temos as perguntas e opções de escolha.
+
+Parte 1 - Dados demográficos
+Parte 2 - Dados sobre carreira
+Parte 3 - Desafios dos gestores de times de dados
+Parte 4 - Conhecimentos na área de dados
+Parte 5 - Objetivos na área de dados
+Parte 6 - Conhecimentos em Engenharia de Dados/DE
+Parte 7 - Conhecimentos em Análise de Dados/DA
+Parte 8 - Conhecimentos em Ciências de Dados/DS
+Parte 9 - Sobre a comunidade Data Hackers
+
+Cada pergunta é dividida em Parte, Letra da Pergunta, Letra da Opção escolhida
+Exemplo: P3a_a = Parte 3, pergunta (a), opção (a)
+
+4 Próximos passos
+Fique atento aos canais do Data Hackers pois entre Abril e Maio vamos divulgar o State of Data Challenge 2021, uma competição que vai premiar as melhores e mais interessantes análises feitas a partir do data set da pesquisa State of Data 2021.
+
+Em caso de qualquer dúvida entre em contato no email: falecom@datahackers.com.br
