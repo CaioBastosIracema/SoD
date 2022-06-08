@@ -66,28 +66,28 @@ SoDfiltrado%>%
 
 #experiência
 expsex=SoDfiltrado%>%
+  dplyr::filter(
+    !is.na(`Experiência na área de dados`)
+  )%>%
   dplyr::count(`('P1_b ', 'Genero')`,
                `Experiência na área de dados`)%>%
 dplyr::group_by(`('P1_b ', 'Genero')`)%>%
   dplyr::mutate(perc = n/sum(n)*100)%>%
   dplyr::arrange(`('P1_b ', 'Genero')`)%>%
-  dplyr::filter(
-    !is.na(`Experiência na área de dados`)
-    )%>%
   ggplot2::ggplot(ggplot2::aes(x=perc,
                                y=`Experiência na área de dados`,
   fill=`('P1_b ', 'Genero')`))+
   ggplot2::geom_col(position = 'dodge')
 
 expsexTI=SoDfiltrado%>%
+  dplyr::filter(
+    !is.na(`Experiência na área de TI`)
+  )%>%
   dplyr::count(`('P1_b ', 'Genero')`,
                `Experiência na área de TI`)%>%
   dplyr::group_by(`('P1_b ', 'Genero')`)%>%
   dplyr::mutate(perc = n/sum(n)*100)%>%
   dplyr::arrange(`('P1_b ', 'Genero')`)%>%
-  dplyr::filter(
-    !is.na(`Experiência na área de TI`)
-  )%>%
   ggplot2::ggplot(ggplot2::aes(x=perc,
                                y=`Experiência na área de TI`,
                                fill=`('P1_b ', 'Genero')`))+
@@ -97,11 +97,11 @@ gridExtra::grid.arrange(expsex, expsexTI)
 
 #Nível de ensino por gênero
 SoDfiltrado%>%
+  dplyr::filter(`('P1_h ', 'Nivel de Ensino')`!='Prefiro não informar')%>%
   dplyr::count(`('P1_b ', 'Genero')`, `('P1_h ', 'Nivel de Ensino')`)%>%
   dplyr::group_by(`('P1_b ', 'Genero')`)%>%
   dplyr::mutate(perc = n/sum(n)*100)%>%
   dplyr::arrange(`('P1_b ', 'Genero')`)%>%
-  dplyr::filter(`('P1_h ', 'Nivel de Ensino')`!='Prefiro não informar')%>%
   ggplot2::ggplot(ggplot2::aes(x=perc, y=`('P1_h ', 'Nivel de Ensino')`,
                                fill=`('P1_b ', 'Genero')`))+
   ggplot2::geom_col(position = 'dodge')
@@ -117,17 +117,16 @@ SoDfiltrado%>%
   ggplot2::geom_col(position = 'dodge')
 
 #Faixa salarial por gênero
-SoDfiltrado%>%
+SoDfiltrado%>%dplyr::filter(!is.na(`('P2_h ', 'Faixa salarial')`))%>%
   dplyr::count(`('P1_b ', 'Genero')`, `('P2_h ', 'Faixa salarial')`)%>%
   dplyr::group_by(`('P1_b ', 'Genero')`)%>%
   dplyr::mutate(perc = n/sum(n)*100)%>%
   dplyr::arrange(`('P1_b ', 'Genero')`)%>%
-  dplyr::filter(!is.na(`('P2_h ', 'Faixa salarial')`))%>%
   ggplot2::ggplot(ggplot2::aes(x=perc, y=`('P2_h ', 'Faixa salarial')`,
                                fill=`('P1_b ', 'Genero')`))+
   ggplot2::geom_col(position = 'dodge')
 
-#Faixa salarial por gênero e atuacao
+#Faixa salarial por gênero e atuação
 SoDfiltrado%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`, `('P2_h ', 'Faixa salarial')`)%>%
   dplyr::group_by(`('P4_a ', 'Atuacao')`, `('P1_b ', 'Genero')`)%>%
@@ -140,11 +139,11 @@ SoDfiltrado%>%
 
 #Faixa salarial por gênero e nível de cargo
 SoDfiltrado%>%
+  dplyr::filter(!is.na(`('P2_h ', 'Faixa salarial')`))%>%
   dplyr::count(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`, `('P2_h ', 'Faixa salarial')`)%>%
   dplyr::group_by(`('P2_g ', 'Nivel')`, `('P1_b ', 'Genero')`)%>%
   dplyr::mutate(perc = n/sum(n)*100)%>%
   dplyr::arrange(`('P2_g ', 'Nivel')`, `('P1_b ', 'Genero')`)%>%
-  dplyr::filter(!is.na(`('P2_h ', 'Faixa salarial')`))%>%
   ggplot2::ggplot(ggplot2::aes(x=perc, y=`('P2_h ', 'Faixa salarial')`,
                                fill=`('P1_b ', 'Genero')`))+
   ggplot2::geom_col(position = 'dodge')+ ggplot2::facet_wrap(~`('P2_g ', 'Nivel')`)
@@ -179,6 +178,23 @@ SoDfiltrado%>%
   dplyr::filter(`('P4_a ', 'Atuacao')`%in%c('Análise de Dados',
                                             'Ciência de Dados'))%>%
   dplyr::count(`('P1_b ', 'Genero')`, `('P4_a ', 'Atuacao')`)
+
 #mulheres tem 2.75 analistas para cada cientista
 #homens tem 1.9 analistas para cada cientista
+
+
+#Entrevista por gênero
+SoDfiltrado%>%
+  dplyr::filter(
+    !is.na(`('P2_m ', 'Você participou de entrevistas de emprego nos últimos 6 meses?')`)
+    )%>%
+  dplyr::count(`('P1_b ', 'Genero')`,
+               `('P2_m ', 'Você participou de entrevistas de emprego nos últimos 6 meses?')`)%>%
+  dplyr::group_by(`('P1_b ', 'Genero')`)%>%
+  dplyr::mutate(perc = n/sum(n)*100)%>%
+  dplyr::arrange(`('P1_b ', 'Genero')`)%>%
+  ggplot2::ggplot(ggplot2::aes(x=perc,
+                               y=`('P2_m ', 'Você participou de entrevistas de emprego nos últimos 6 meses?')`,
+                               fill=`('P1_b ', 'Genero')`))+
+  ggplot2::geom_col(position = 'dodge')
 
