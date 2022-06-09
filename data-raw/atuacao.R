@@ -48,8 +48,8 @@ exp=SoDfiltrado%>%
     !is.na(`Experiência na área de dados`)
   )%>%
   ggplot2::ggplot(ggplot2::aes(x=perc,
-                               y=`Experiência na área de dados`,
-                               fill=`('P4_a ', 'Atuacao')`))+
+                               y=`('P4_a ', 'Atuacao')`,
+                               fill=`Experiência na área de dados`))+
   ggplot2::geom_col(position = 'dodge')
 
 expTI=SoDfiltrado%>%
@@ -62,8 +62,8 @@ expTI=SoDfiltrado%>%
     !is.na(`Experiência na área de TI`)
   )%>%
   ggplot2::ggplot(ggplot2::aes(x=perc,
-                               y=`Experiência na área de TI`,
-                               fill=`('P4_a ', 'Atuacao')`))+
+                               y=`('P4_a ', 'Atuacao')`,
+                               fill=`Experiência na área de TI`))+
   ggplot2::geom_col(position = 'dodge')
 
 gridExtra::grid.arrange(exp, expTI)
@@ -79,8 +79,8 @@ exp2=SoDfiltrado%>%
     !is.na(`Experiência na área de dados`) & !is.na(`('P2_g ', 'Nivel')`)
   )%>%
   ggplot2::ggplot(ggplot2::aes(x=perc,
-                               y=`Experiência na área de dados`,
-                               fill=`('P2_g ', 'Nivel')`))+
+                               y=`('P2_g ', 'Nivel')`,
+                               fill=`Experiência na área de dados`))+
   ggplot2::geom_col(position = 'dodge')
 
 exp2TI=SoDfiltrado%>%
@@ -93,8 +93,8 @@ exp2TI=SoDfiltrado%>%
     !is.na(`Experiência na área de TI`) & !is.na(`('P2_g ', 'Nivel')`)
   )%>%
   ggplot2::ggplot(ggplot2::aes(x=perc,
-                               y=`Experiência na área de TI`,
-                               fill=`('P2_g ', 'Nivel')`))+
+                               y=`('P2_g ', 'Nivel')`,
+                               fill=`Experiência na área de TI`))+
   ggplot2::geom_col(position = 'dodge')
 
 gridExtra::grid.arrange(exp2, exp2TI)

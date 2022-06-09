@@ -1,8 +1,8 @@
 #Filtrando a base para ter, apenas, pessoas com até 3 anos de experiência
 #na área de dados
 SoDinexperiente=SoDfiltrado%>%dplyr::filter(`Experiência na área de dados` %in%c(
-  'Menos de 1 ano','1 a 2 anos'
-))
+  'Menos de 1 ano','1 a 2 anos') & `Experiência na área de TI`%in%c(
+    'Sem experiência'))
 
 #Nível de ensino por gênero
 SoDinexperiente%>%
