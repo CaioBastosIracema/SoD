@@ -74,13 +74,31 @@ SoDfiltrado%>%
 
 
 #Região por gênero
-SoDfiltrado%>%
-  dplyr::filter(!is.na(`('P1_e_b ', 'Regiao onde mora')`))%>%
-  ggplot2::ggplot(ggplot2::aes( y=`('P1_b ', 'Genero')`))+
-  ggplot2::geom_bar(ggplot2::aes(
-    fill=as.factor(`('P1_e_b ', 'Regiao onde mora')`)),
-                    position="fill")
-
+ SoDfiltrado%>%
+  dplyr::count(`('P1_b ', 'Genero')`, `('P1_e_b ', 'Regiao onde mora')`) %>%
+   dplyr::group_by(`('P1_b ', 'Genero')`) %>%
+   dplyr::mutate(Prop = n/sum(n))%>%
+ggplot2::ggplot(
+  ggplot2::aes(x = `('P1_b ', 'Genero')`, y = Prop,
+      fill = `('P1_e_b ', 'Regiao onde mora')`)) +
+   ggplot2::geom_col( color="white",
+                      position = ggplot2::position_fill()) +
+   ggrepel::geom_label_repel(ggplot2::aes(
+     label = scales::percent(Prop)),
+     fontface = 'bold',
+     hjust=2,
+     position = ggplot2::position_stack(vjust = .5),
+       size=3.5) +
+   ggplot2::labs(title = 'Pessoas Entrevistadas, por Gênero e Região')+
+   ggplot2::theme_minimal()+ggplot2::xlab('Gênero')+
+   ggplot2::theme(legend.position="bottom",
+                  plot.title=ggplot2::element_text(face='bold.italic',
+                                                   hjust = 0.5, size=20),
+                  axis.text.y=ggplot2::element_blank(),
+                  axis.title.y=ggplot2::element_blank(),
+                  axis.title.x=ggplot2::element_blank(),
+                  axis.text.x =ggplot2::element_text(face='bold', size=12),
+                  legend.title=ggplot2::element_blank())
 
 #Atuação por gênero
 SoDfiltrado%>%
