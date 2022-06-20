@@ -210,7 +210,7 @@ SoDfiltrado%>%
                  axis.title.x=ggplot2::element_blank(),
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
-  ggplot2::facet_wrap(~`('P2_g ', 'Nivel')`)
+  ggplot2::facet_grid(~`('P2_g ', 'Nivel')`)
 
 #Nível de ensino por gênero e atuação
 SoDfiltrado%>%
@@ -241,7 +241,7 @@ SoDfiltrado%>%
                  axis.title.x=ggplot2::element_blank(),
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
-  ggplot2::facet_wrap(~`('P4_a ', 'Atuacao')`)
+  ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
 #############################################################################
 ######Nível de cargo
@@ -304,7 +304,7 @@ SoDfiltrado%>%
                  axis.title.x=ggplot2::element_blank(),
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
-  ggplot2::facet_wrap(~`('P4_a ', 'Atuacao')`)
+  ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
 #####################################################################
 ####### Experiência###############################
@@ -398,7 +398,7 @@ expsex=SoDfiltrado%>%
                  axis.title.x=ggplot2::element_blank(),
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
-  ggplot2::facet_wrap(~`('P2_g ', 'Nivel')`)
+  ggplot2::facet_grid(~`('P2_g ', 'Nivel')`)
 
 expsexTI=SoDfiltrado%>%
   dplyr::count(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`, `Experiência na área de TI`) %>%
@@ -428,9 +428,10 @@ expsexTI=SoDfiltrado%>%
                  axis.title.x=ggplot2::element_blank(),
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
-  ggplot2::facet_wrap(~`('P2_g ', 'Nivel')`)
+  ggplot2::facet_grid(~`('P2_g ', 'Nivel')`)
 
-gridExtra::grid.arrange(expsex, expsexTI)
+expsex
+expsexTI
 
 #Experiência por gênero e atuação
 expsex=SoDfiltrado%>%
@@ -462,7 +463,7 @@ expsex=SoDfiltrado%>%
                  axis.title.x=ggplot2::element_blank(),
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
-  ggplot2::facet_wrap(~`('P4_a ', 'Atuacao')`)
+  ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
 expsexTI=SoDfiltrado%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`, `Experiência na área de TI`) %>%
@@ -492,7 +493,7 @@ expsexTI=SoDfiltrado%>%
                  axis.title.x=ggplot2::element_blank(),
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
-  ggplot2::facet_wrap(~`('P4_a ', 'Atuacao')`)
+  ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
 expsex
 expsexTI
@@ -558,7 +559,7 @@ SoDfiltrado%>%
                  axis.title.x=ggplot2::element_blank(),
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
-  ggplot2::facet_wrap(~`('P4_a ', 'Atuacao')`)
+  ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
 #Faixa salarial por gênero e nível de cargo
 SoDfiltrado%>%
@@ -589,7 +590,7 @@ SoDfiltrado%>%
                  axis.title.x=ggplot2::element_blank(),
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
-  ggplot2::facet_wrap(~`('P2_g ', 'Nivel')`)
+  ggplot2::facet_grid(~`('P2_g ', 'Nivel')`)
 
 #Faixa salarial por gênero e nível de ensino
 SoDfiltrado%>%
@@ -621,7 +622,7 @@ SoDfiltrado%>%
                  axis.title.x=ggplot2::element_blank(),
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
-  ggplot2::facet_wrap(~`('P1_h ', 'Nivel de Ensino')`)
+  ggplot2::facet_grid(~`('P1_h ', 'Nivel de Ensino')`)
 
 #Faixa salarial por gênero e experiência na área de dados
 SoDfiltrado%>%
@@ -730,52 +731,67 @@ SoDfiltrado%>%
 #Formação por gênero e atuação
 SoDfiltrado%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`,
-               `('P1_i ', 'Área de Formação')`)%>%
-  dplyr::group_by(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`)%>%
-  dplyr::mutate(perc = n/sum(n)*100)%>%
-  dplyr::arrange(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`)%>%
-  dplyr::filter(
-    !is.na(`('P1_i ', 'Área de Formação')`)
-  )%>%
-  ggplot2::ggplot(ggplot2::aes(x=perc,
-                               y=`('P1_i ', 'Área de Formação')`,
-                               fill=`('P4_a ', 'Atuacao')`))+
-  ggplot2::geom_col(position = 'dodge')+
-  ggplot2::facet_wrap(~`('P1_b ', 'Genero')`)
+               `('P1_i ', 'Área de Formação')`) %>%
+  dplyr::group_by(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`) %>%
+  dplyr::mutate(Prop = n/sum(n))%>%dplyr::filter(
+    !is.na(`('P1_i ', 'Área de Formação')`))%>%
+  ggplot2::ggplot(
+    ggplot2::aes(x = `('P1_b ', 'Genero')`, y = Prop,
+                 fill = `('P1_i ', 'Área de Formação')`)) +
+  ggplot2::geom_col( color="white",
+                     position = ggplot2::position_fill()) +
+  ggrepel::geom_label_repel(ggplot2::aes(
+    label = scales::percent(Prop)),
+    fontface = 'bold',
+    hjust=2,
+    position = ggplot2::position_stack(vjust = .5),
+    size=3.5) +
+  ggplot2::labs(title = 'Pessoas Entrevistadas, por Gênero e Área de Formação')+
+  ggplot2::theme_void()+
+  ggplot2::scale_fill_brewer(type = "seq", palette = "Pastel1")+
+  ggplot2::xlab('Gênero')+
+  ggplot2::theme(legend.position="bottom",
+                 plot.title=ggplot2::element_text(face='bold.italic',
+                                                  hjust = 0.5, size=20),
+                 axis.text.y=ggplot2::element_blank(),
+                 axis.title.y=ggplot2::element_blank(),
+                 axis.title.x=ggplot2::element_blank(),
+                 axis.text.x =ggplot2::element_text(face='bold', size=12),
+                 legend.title=ggplot2::element_blank())+
+  ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
 ############################################################################
-#Formação por gênero e nível de ensino
-SoDfiltrado%>%
-  dplyr::count(`('P1_h ', 'Nivel de Ensino')`,`('P1_b ', 'Genero')`,
-               `('P1_i ', 'Área de Formação')`)%>%
-  dplyr::group_by(`('P1_h ', 'Nivel de Ensino')`,`('P1_b ', 'Genero')`)%>%
-  dplyr::mutate(perc = n/sum(n)*100)%>%
-  dplyr::arrange(`('P1_h ', 'Nivel de Ensino')`,`('P1_b ', 'Genero')`)%>%
-  dplyr::filter(
-    !is.na(`('P1_i ', 'Área de Formação')`)
-  )%>%
-  ggplot2::ggplot(ggplot2::aes(x=perc,
-                               y=`('P1_i ', 'Área de Formação')`,
-                               fill=`('P1_h ', 'Nivel de Ensino')`))+
-  ggplot2::geom_col(position = 'dodge')+
-  ggplot2::facet_wrap(~`('P1_b ', 'Genero')`)
-
 #Formação por gênero e nível de cargo
 SoDfiltrado%>%
   dplyr::count(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`,
-               `('P1_i ', 'Área de Formação')`)%>%
-  dplyr::group_by(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`)%>%
-  dplyr::mutate(perc = n/sum(n)*100)%>%
-  dplyr::arrange(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`)%>%
-  dplyr::filter(
-    !is.na(`('P1_i ', 'Área de Formação')`) &
-      !is.na(`('P2_g ', 'Nivel')`)
-  )%>%
-  ggplot2::ggplot(ggplot2::aes(x=perc,
-                               y=`('P1_i ', 'Área de Formação')`,
-                               fill=`('P2_g ', 'Nivel')`))+
-  ggplot2::geom_col(position = 'dodge')+
-  ggplot2::facet_wrap(~`('P1_b ', 'Genero')`)
+               `('P1_i ', 'Área de Formação')`) %>%
+  dplyr::group_by(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`) %>%
+  dplyr::mutate(Prop = n/sum(n))%>%dplyr::filter(
+    !is.na(`('P1_i ', 'Área de Formação')`))%>%
+  ggplot2::ggplot(
+    ggplot2::aes(x = `('P1_b ', 'Genero')`, y = Prop,
+                 fill = `('P1_i ', 'Área de Formação')`)) +
+  ggplot2::geom_col( color="white",
+                     position = ggplot2::position_fill()) +
+  ggrepel::geom_label_repel(ggplot2::aes(
+    label = scales::percent(Prop)),
+    fontface = 'bold',
+    hjust=2,
+    position = ggplot2::position_stack(vjust = .5),
+    size=3.5) +
+  ggplot2::labs(title = 'Pessoas Entrevistadas, por Gênero e Área de Formação')+
+  ggplot2::theme_void()+
+  ggplot2::scale_fill_brewer(type = "seq", palette = "Pastel1")+
+  ggplot2::xlab('Gênero')+
+  ggplot2::theme(legend.position="bottom",
+                 plot.title=ggplot2::element_text(face='bold.italic',
+                                                  hjust = 0.5, size=20),
+                 axis.text.y=ggplot2::element_blank(),
+                 axis.title.y=ggplot2::element_blank(),
+                 axis.title.x=ggplot2::element_blank(),
+                 axis.text.x =ggplot2::element_text(face='bold', size=12),
+                 legend.title=ggplot2::element_blank())+
+  ggplot2::facet_grid(~`('P2_g ', 'Nivel')`)
 
 ############################################################################
 ## Proporção cientista/analista
