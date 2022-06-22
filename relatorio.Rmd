@@ -1,0 +1,133 @@
+---
+title: "Diferenças na Área de Dados, no Mundo Corporativo, por Gênero"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Não é novidade para ninguém que vivemos em uma sociedade que, há séculos, tende a favorecer os homens em relação às mulheres em diversos aspectos e no meio profissional não é diferente. Embora isto venha mudando bem lentamente de uns tempos para cá, infelizmente ainda é possível constatar muitos problemas oriundos da diferença de gênero. Por isso, estudos sobre o tópico se fazem necessárias se quisermos superar o problema em questão na sociedade e o "State of Data Brazil 2021", maior pesquisa sobre a área de dados no Brasil, permite uma interessante investigação sobre o tema no que é hoje uma das áreas mais modernas e aquecidas do mercado. Será que o fato da área de dados ser relativamente nova, com profundas transformações sofridas nos últimos 20 anos, faz com que esta seja mais igualitária em termos de gênero ou existem diferenças significativas no oferecimento das grandes oportunidades que esta área oferece para seus profissionais, dependendo de seu gênero.
+
+
+Primeiro, é importante pontuar que, para as análises que serão mostradas a seguir, foram consideradas apenas pessoas cuja situação de trabalho era "Empreendedor ou Empregado (CNPJ)" e "Empregado (CLT)", pois o objetivo é investigar as possíveis diferenças de gênero no mundo corporativo, portanto, 
+pessoas que trabalham como freelancer, acadêmicos, servidor público foram excluídos, assim como estagiários (somente pessoas devidamente empregadas foram inclusas). Também foram deixadas de lado pessoas que se identificaram com a categoria de gênero "Outros" (o objetivo é investigar possiveis diferenças entre homens e mulheres e, além disso, apenas 5 pessoas entraram nesta categoria, o que complicaria comparações com os outros gêneros).
+
+```{r}
+
+###Importando a base de dados##########################
+
+SoD2021<-readr::read_csv('data/State of Data 2021 - Dataset - Pgina1.csv')
+`%>%`=magrittr::`%>%`
+`%notin%`=Negate(`%in%`)
+
+#Preparando a base para as análises
+#Incluo na base apenas as categorias "Empreendedor ou Empregado (CNPJ)" e
+#"Empregado (CLT)" da variável "Qual sua situação atual de trabalho?".
+#Excluo a categoria de gênero "Outros".
+#Além disso, reordeno as categorias das variáveis "nível de ensino",
+#"faixa salarial", "experiência na área de dados" e "experiência na área de TI"
+
+SoDfiltrado=SoD2021%>%dplyr::filter(
+  `('P2_a ', 'Qual sua situação atual de trabalho?')`%in%c(
+    'Empreendedor ou Empregado (CNPJ)', 'Empregado (CLT)') &
+    `('P1_b ', 'Genero')`!='Outro' )%>%
+  dplyr::mutate(`('P2_h ', 'Faixa salarial')`= forcats::lvls_reorder(
+  as.factor(`('P2_h ', 'Faixa salarial')`),
+  c(13, 2, 5, 8, 10, 11, 12, 3, 4, 6, 7, 9, 1)),
+  `('P1_h ', 'Nivel de Ensino')`= forcats::lvls_reorder(
+    as.factor(`('P1_h ', 'Nivel de Ensino')`), c(5, 2, 3, 6, 4 , 1, 7)),
+  `('P2_i ', 'Quanto tempo de experiência na área de dados você tem?')`= forcats::lvls_reorder(
+    as.factor(`('P2_i ', 'Quanto tempo de experiência na área de dados você tem?')`),
+    c(7, 6, 1, 2, 3, 4, 5)),
+  `('P2_j ', 'Quanto tempo de experiência na área de TI/Engenharia de Software você teve antes de começar a trabalhar na área de dados?')`
+  = forcats::lvls_reorder(
+    as.factor(`('P2_j ', 'Quanto tempo de experiência na área de TI/Engenharia de Software você teve antes de começar a trabalhar na área de dados?')`
+),
+    c(7, 6, 1, 2, 3, 4, 5))
+)
+
+
+#Substituindo os valores "NA"s da variável "Nível do cargo", pelo valor "Gestor"
+
+SoDfiltrado$`('P2_g ', 'Nivel')`=replace(SoDfiltrado$`('P2_g ', 'Nivel')`,
+        is.na(SoDfiltrado$`('P2_g ', 'Nivel')`), 'Gestor')
+
+#Reordenando as categorias da variável "Nível do cargo"
+
+SoDfiltrado= SoDfiltrado%>%dplyr::mutate(
+  `('P2_g ', 'Nivel')`=forcats::lvls_reorder(
+  as.factor(`('P2_g ', 'Nivel')`),
+  c( 2, 3, 4, 1))
+  )
+
+#Criando a categoria "Acima de R$ 16.001/mês" em "faixa salarial"
+
+levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)[
+  levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)%in%c("de R$ 16.001/mês a R$ 20.000/mês",
+                                                         "de R$ 20.001/mês a R$ 25.000/mês",
+                                                         "de R$ 25.001/mês a R$ 30.000/mês",
+                                                         "de R$ 30.001/mês a R$ 40.000/mês",
+                                                         "Acima de R$ 40.001/mês")] <- "Acima de R$ 16.001/mês"
+
+
+##Experiência#############
+
+#Alterando o nome das variáveis "Experiência na área de dados" e
+# "Experiência na área de TI" para simplificar a manipulação
+
+colnames(SoDfiltrado)[c(20,21)]=c('Experiência na área de dados',
+                                  'Experiência na área de TI')
+
+
+#renomeando categorias das variáveis "Experiência na área de dados" e
+# "Experiência na área de TI"
+
+SoDfiltrado=SoDfiltrado%>%dplyr::mutate(`Experiência na área de dados`=forcats::lvls_revalue(
+  `Experiência na área de dados`, c('Sem experiência', 'Menos de 1 ano',
+                                    '1 a 2 anos', '2 a 3 anos', '4 a 5 anos',
+                                    '6 a 10 anos', 'Mais de 10 anos'))
+)
+
+SoDfiltrado=SoDfiltrado%>%dplyr::mutate(`Experiência na área de TI`=forcats::lvls_revalue(
+  `Experiência na área de TI`, c('Sem experiência', 'Menos de 1 ano',
+                                    '1 a 2 anos', '2 a 3 anos', '4 a 5 anos',
+                                    '6 a 10 anos', 'Mais de 10 anos'))
+)
+
+```
+
+Logo de cara, a pesquisa mostra que a área de dados é amplamente dominada pelos homens, pois mais de 81% dos entrevistados (levando em conta as considerações feitas anteriormente) são homens e este número não é muito diferente da versão da mesma pesquisa realizada em 2019, o "datahackers-survey-2019", onde quase 83% dos entrevistados (com as mesmas considerações) foram homens. Assim, imaginar eventuais desfavorecimentos sofridos pelas mulheres em uma área predominantemente masculina não é nenhum absurdo. 
+
+```{r}
+
+#Pessoas por gênero -State of Data 2021
+
+SoDfiltrado%>%dplyr::count(`('P1_b ', 'Genero')`)%>%
+  dplyr::mutate(perc = n/sum(n)*100)
+
+###Importando a base de dados##########################
+
+SoD2019<-readr::read_csv('data/datahackers-survey-2019-anonymous-responses.csv')
+`%>%`=magrittr::`%>%`
+`%notin%`=Negate(`%in%`)
+
+#Preparando a base para as análises
+#Incluo na base apenas as categorias "Empreendedor ou Empregado (CNPJ)" e
+#"Empregado (CLT)" da variável "Qual sua situação atual de trabalho?".
+#Excluo a categoria de gênero "Outros".
+
+SoDfiltrado2=SoD2019%>%dplyr::filter(
+  `('P10', 'job_situation')`%in%c(
+    'Empreendedor ou Empregado (CNPJ)', 'Empregado (CTL)') &
+    `('P2', 'gender')`!='Outro' )
+
+#Pessoas por gênero - datahackers-survey-2019
+
+SoDfiltrado2%>%dplyr::count(`('P2', 'gender')`)%>%
+  dplyr::mutate(perc = n/sum(n)*100)
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

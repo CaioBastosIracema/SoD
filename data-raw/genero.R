@@ -1,19 +1,20 @@
-### Preparando a base####################################
+
+###Importando a base de dados##########################
 
 SoD2021<-readr::read_csv('data/State of Data 2021 - Dataset - Pgina1.csv')
 `%>%`=magrittr::`%>%`
 `%notin%`=Negate(`%in%`)
 
-#mice::md.pattern(SoD2021)
-#c2<-densityplot(train$Age)
-
+#Preparando a base para as análises
+#Incluo na base apenas as categorias "Empreendedor ou Empregado (CNPJ)" e
+#"Empregado (CLT)" da variável "Qual sua situação atual de trabalho?".
+#Excluo a categoria de gênero "Outros".
+#Além disso, reordeno as categorias das variáveis "nível de ensino",
+#"faixa salarial", "experiência na área de dados" e "experiência na área de TI"
 
 SoDfiltrado=SoD2021%>%dplyr::filter(
-  `('P2_a ', 'Qual sua situação atual de trabalho?')`%notin%c(
-    'Somente Estudante (graduação)', 'Somente Estudante (pós-graduação)',
-    'Desempregado e não estou buscando recolocação',
-    'Trabalho na área Acadêmica/Pesquisador',
-    'Desempregado, buscando recolocação', 'Prefiro não informar') &
+  `('P2_a ', 'Qual sua situação atual de trabalho?')`%in%c(
+    'Empreendedor ou Empregado (CNPJ)', 'Empregado (CLT)') &
     `('P1_b ', 'Genero')`!='Outro' )%>%
   dplyr::mutate(`('P2_h ', 'Faixa salarial')`= forcats::lvls_reorder(
   as.factor(`('P2_h ', 'Faixa salarial')`),
@@ -30,14 +31,21 @@ SoDfiltrado=SoD2021%>%dplyr::filter(
     c(7, 6, 1, 2, 3, 4, 5))
 )
 
+
+#Substituindo os valores "NA"s da variável "Nível do cargo", pelo valor "Gestor"
+
 SoDfiltrado$`('P2_g ', 'Nivel')`=replace(SoDfiltrado$`('P2_g ', 'Nivel')`,
         is.na(SoDfiltrado$`('P2_g ', 'Nivel')`), 'Gestor')
+
+#Reordenando as categorias da variável "Nível do cargo"
 
 SoDfiltrado= SoDfiltrado%>%dplyr::mutate(
   `('P2_g ', 'Nivel')`=forcats::lvls_reorder(
   as.factor(`('P2_g ', 'Nivel')`),
   c( 2, 3, 4, 1))
   )
+
+#Criando a categoria "Acima de R$ 16.001/mês" em "faixa salarial"
 
 levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)[
   levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)%in%c("de R$ 16.001/mês a R$ 20.000/mês",
@@ -47,11 +55,18 @@ levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)[
                                                          "Acima de R$ 40.001/mês")] <- "Acima de R$ 16.001/mês"
 
 
-#alterando nomes de colunas para simplificar
+##Experiência#############
+
+#Alterando o nome das variáveis "Experiência na área de dados" e
+# "Experiência na área de TI" para simplificar a manipulação
+
 colnames(SoDfiltrado)[c(20,21)]=c('Experiência na área de dados',
                                   'Experiência na área de TI')
 
-#renomeando categorias
+
+#renomeando categorias das variáveis "Experiência na área de dados" e
+# "Experiência na área de TI"
+
 SoDfiltrado=SoDfiltrado%>%dplyr::mutate(`Experiência na área de dados`=forcats::lvls_revalue(
   `Experiência na área de dados`, c('Sem experiência', 'Menos de 1 ano',
                                     '1 a 2 anos', '2 a 3 anos', '4 a 5 anos',
