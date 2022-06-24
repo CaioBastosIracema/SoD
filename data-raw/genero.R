@@ -454,6 +454,7 @@ expsex=SoDfiltrado%>%
                `Experiência na área de dados`) %>%
   dplyr::group_by(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
+  dplyr::filter(`('P4_a ', 'Atuacao')`!='Outra')%>%
   ggplot2::ggplot(
     ggplot2::aes(x = `('P1_b ', 'Genero')`, y = Prop,
                  fill = `Experiência na área de dados`)) +
@@ -484,6 +485,7 @@ expsexTI=SoDfiltrado%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`, `Experiência na área de TI`) %>%
   dplyr::group_by(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
+  dplyr::filter(`('P4_a ', 'Atuacao')`!='Outra')%>%
   ggplot2::ggplot(
     ggplot2::aes(x = `('P1_b ', 'Genero')`, y = Prop,
                  fill = `Experiência na área de TI`)) +
@@ -716,9 +718,9 @@ SoDfiltrado%>%
 #Formação por gênero
 SoDfiltrado%>%
   dplyr::count(`('P1_b ', 'Genero')`, `('P1_i ', 'Área de Formação')`) %>%
-  dplyr::group_by(`('P1_b ', 'Genero')`) %>%
-  dplyr::mutate(Prop = n/sum(n))%>%dplyr::filter(
-    !is.na(`('P1_i ', 'Área de Formação')`))%>%
+  dplyr::group_by(`('P1_b ', 'Genero')`)%>%dplyr::filter(
+    !is.na(`('P1_i ', 'Área de Formação')`)) %>%
+  dplyr::mutate(Prop = n/sum(n))%>%
   ggplot2::ggplot(
     ggplot2::aes(x = `('P1_b ', 'Genero')`, y = Prop,
                  fill = `('P1_i ', 'Área de Formação')`)) +
