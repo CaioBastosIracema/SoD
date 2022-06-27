@@ -552,6 +552,7 @@ SoDfiltrado%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`, `('P2_h ', 'Faixa salarial')`) %>%
   dplyr::group_by(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
+  dplyr::filter(`('P4_a ', 'Atuacao')`%notin%c('Outra', 'Gestor'))%>%
   ggplot2::ggplot(
     ggplot2::aes(x = `('P1_b ', 'Genero')`, y = Prop,
                  fill = `('P2_h ', 'Faixa salarial')`)) +
@@ -840,3 +841,70 @@ SoDfiltrado%>%
   dplyr::group_by(`('P1_h ', 'Nivel de Ensino')`,`('P1_b ', 'Genero')`)%>%
   dplyr::mutate(perc = n/sum(n)*100)
 
+######################## Faixa de idade ###################
+
+#Faixas de idade por gênero e atuação
+SoDfiltrado%>%
+  dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`,
+               `('P1_a_a ', 'Faixa idade')`) %>%
+  dplyr::group_by(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`) %>%
+  dplyr::mutate(Prop = n/sum(n))%>%
+  dplyr::filter(`('P4_a ', 'Atuacao')`%notin%c('Outra','Gestor'))%>%
+  ggplot2::ggplot(
+    ggplot2::aes(x = `('P1_b ', 'Genero')`, y = Prop,
+                 fill = `('P1_a_a ', 'Faixa idade')`)) +
+  ggplot2::geom_col( color="white",
+                     position = ggplot2::position_fill()) +
+  ggrepel::geom_label_repel(ggplot2::aes(
+    label = scales::percent(Prop)),
+    fontface = 'bold',
+    hjust=2,
+    position = ggplot2::position_stack(vjust = .5),
+    size=3.5) +
+  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero,
+                   Faixa de idade e Atuação')+
+  ggplot2::theme_void()+
+  ggplot2::scale_fill_brewer(type = "seq", palette = "Reds")+
+  ggplot2::xlab('Gênero')+
+  ggplot2::theme(legend.position="bottom",
+                 plot.title=ggplot2::element_text(face='bold.italic',
+                                                  hjust = 0.5, size=20),
+                 axis.text.y=ggplot2::element_blank(),
+                 axis.title.y=ggplot2::element_blank(),
+                 axis.title.x=ggplot2::element_blank(),
+                 axis.text.x =ggplot2::element_text(face='bold', size=12),
+                 legend.title=ggplot2::element_blank())+
+  ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
+
+#Faixas de idade por gênero e nível de cargo
+SoDfiltrado%>%
+  dplyr::count(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`,
+               `('P1_a_a ', 'Faixa idade')`) %>%
+  dplyr::group_by(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`) %>%
+  dplyr::mutate(Prop = n/sum(n))%>%
+  dplyr::filter(`('P2_g ', 'Nivel')`%notin%c('Outra'))%>%
+  ggplot2::ggplot(
+    ggplot2::aes(x = `('P1_b ', 'Genero')`, y = Prop,
+                 fill = `('P1_a_a ', 'Faixa idade')`)) +
+  ggplot2::geom_col( color="white",
+                     position = ggplot2::position_fill()) +
+  ggrepel::geom_label_repel(ggplot2::aes(
+    label = scales::percent(Prop)),
+    fontface = 'bold',
+    hjust=2,
+    position = ggplot2::position_stack(vjust = .5),
+    size=3.5) +
+  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero,
+                   Faixa de idade e Nível de Cargo')+
+  ggplot2::theme_void()+
+  ggplot2::scale_fill_brewer(type = "seq", palette = "Reds")+
+  ggplot2::xlab('Gênero')+
+  ggplot2::theme(legend.position="bottom",
+                 plot.title=ggplot2::element_text(face='bold.italic',
+                                                  hjust = 0.5, size=20),
+                 axis.text.y=ggplot2::element_blank(),
+                 axis.title.y=ggplot2::element_blank(),
+                 axis.title.x=ggplot2::element_blank(),
+                 axis.text.x =ggplot2::element_text(face='bold', size=12),
+                 legend.title=ggplot2::element_blank())+
+  ggplot2::facet_grid(~`('P2_g ', 'Nivel')`)
