@@ -130,7 +130,7 @@ df2%>%dplyr::count(`('P2', 'gender')`)%>%
 
 ```
 
-Investigando as funções exercidas pelos profissionais da área de acordo com seu gênero, é possível perceber uma maior concentração das mulheres entrevistadas nos cargos de analise de dados, com 46% delas atuando como analistas, enquanto que apenas 33% dos homens entrevistados exercem tal função. Considerando as 4 principais atuações mostradas na pesquisa (análise de dados, ciência de dados, engenharia de dados e gestor), esta é a que, de uma maneira geral, pior paga, segundo o relatório do State of Data Brazil 2021. Além disso, é importante notar a menor presença relativa das mulheres entre os gestores (16,3% das mulheres entrevistadas são gestoras, enquanto que este percentual entre os homens é de 24,4%). Isso pode indicar uma dificuldade que o gênero feminino estaria enfrentando nas empresas: assumir cargos de maior responsabilidade e que requerem maior confiança por parte dos superiores.
+Investigando as funções exercidas pelos profissionais da área de acordo com seu gênero, é possível perceber uma maior concentração das mulheres entrevistadas nos cargos de analise de dados, com 46% delas atuando como analistas, enquanto que apenas 33% dos homens entrevistados exercem tal função. Considerando as 4 principais atuações mostradas na pesquisa (análise de dados, ciência de dados, engenharia de dados e gestor), esta é a que, de uma maneira geral, pior paga, segundo o relatório do State of Data Brazil 2021 - Figura 28. Além disso, é importante notar a menor presença relativa das mulheres entre os gestores (16,3% das mulheres entrevistadas são gestoras, enquanto que este percentual entre os homens é de 24,4%). Isso pode indicar uma dificuldade que o gênero feminino estaria enfrentando nas empresas: assumir cargos de maior responsabilidade e que requerem maior confiança por parte dos superiores.
 Analisando os níveis de cargo em cada atuação separadamente, encontra-se certo equilibrio na função análise de dados. Já entre cientistas de dados, as mulheres são, proporcionalmente, mais presentes nos cargos júnior (34,4% x 22,9%), menos no nível pleno (35,9% x 47,5%) e igualmente presente no sênior (29% x 29%). O caso mais crítico, no entanto, é na atuação de engenharia de dados, onde apenas 12,5% das mulheres estão em cargos sênior contra 40,3% dos homens.
 
 ```{r}
@@ -151,7 +151,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Atuação x Gênero')+
+  ggplot2::ggtitle('Figura 1: Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Spectral")+
   ggplot2::xlab('Gênero')+
@@ -181,7 +181,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Nível de Cargo x Atuação x Gênero')+
+  ggplot2::ggtitle('Figura 2: Nível de Cargo x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Oranges")+
   ggplot2::xlab('Gênero')+
@@ -196,8 +196,8 @@ df%>%
   ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
 ```
-O curioso é o fato das mulheres serem mais escolarizadas que os homens e quem diz isso é o IBGE. Os dados constam da segunda edição do estudo "Estatísticas de gênero: indicadores sociais das mulheres no Brasil". Ele traz informações variadas sobre as condições de vida das brasileiras em 2019  https://epocanegocios.globo.com/Economia/noticia/2021/03/epoca-negocios-mulheres-sao-mais-instruidas-mas-ocupam-apenas-374-dos-cargos-gerenciais.html . O estudo ainda trás outros dados, como a maior dificuldade das mulheres em acessar cargos de chefia e gerência (corroborando com o gráfico mostrado anteriormente), além do rendimento médio inferior a 80% do rendimento dos homens (de acordo com o relatório do State of Data Brazil 2021, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão). 
-Também é possível verificar isso na área de dados, mais precisamente com a pesquisa State of Data Brazil 2021, onde, considerando as funções de análise de dados e engenharia de dados, a proporção das mulheres entrevistadas que não possuem o nível de pós-graduação é menor que a dos homens na mesma situação, já entre os cientistas de dados, há equilíbrio neste quesito, embora quando passamos a analisar pessoas com, pelo menos, o nível de graduação, a proporção das mulheres volta a ser superior.
+O curioso é o fato das mulheres serem mais escolarizadas que os homens e quem diz isso é o IBGE. Os dados constam da segunda edição do estudo "Estatísticas de gênero: indicadores sociais das mulheres no Brasil". Ele traz informações variadas sobre as condições de vida das brasileiras em 2019  https://epocanegocios.globo.com/Economia/noticia/2021/03/epoca-negocios-mulheres-sao-mais-instruidas-mas-ocupam-apenas-374-dos-cargos-gerenciais.html . O estudo ainda trás outros dados, como a maior dificuldade das mulheres em acessar cargos de chefia e gerência (corroborando com o gráfico mostrado anteriormente), além do rendimento médio inferior a 80% do rendimento dos homens (de acordo com o relatório do State of Data Brazil 2021 - Figura 26, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão). 
+Ao que tudo indica, também é possível verificar isso na área de dados, onde, considerando as funções de análise de dados e engenharia de dados, a proporção das mulheres entrevistadas que não possuem o nível de pós-graduação é menor que a dos homens na mesma situação, já entre os cientistas de dados, há mais equilíbrio.
 Isto também acontece entre os níveis de cargo, sendo que, considerando os profissionais sênior, entre as mulheres apenas 22,1% não possuem pós-graduação, enquanto que este percentual é de mais de 35.7% entre os homens. Já em relação aos gestores, no entanto, há mais equilíbrio. Entre as gestoras entrevistadas apenas 31,15% não possuem pós-graduação, enquanto que este percentual é de cerca de 35.8% entre os homens.
 Além disso, em termos de áreas de formação, as mulheres entrevistadas estão menos concentradas no campo da TI e afins do que os homens (34,5% x 45,2%), resultando em uma maior diversidade de formaturas, estando proporcionalmente mais presente em outras áreas do conhecimento, como estatística, área de saúde, marketing, etc.
 
@@ -219,7 +219,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Nível de Ensino x Atuação x Gênero')+
+  ggplot2::ggtitle('Figura 3: Nível de Ensino x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "BuPu")+
   ggplot2::xlab('Gênero')+
@@ -250,7 +250,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Nível de Ensino x Nível de Cargo x Gênero')+
+  ggplot2::ggtitle('Figura 4: Nível de Ensino x Nível de Cargo x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "BuPu")+
   ggplot2::xlab('Gênero')+
@@ -281,7 +281,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::labs(title = 'Formação x Gênero')+
+  ggplot2::labs(title = 'Figura 5: Formação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Pastel1")+
   ggplot2::xlab('Gênero')+
@@ -297,6 +297,7 @@ df%>%
 
 ```
 Entretanto, parece que o nível de escolaridade das mulheres "vale menos" que o dos homens, pois considerando os 4 principais níveis escolares (bacharel, pós, mestrado e doutorado) as mulheres que os possuem estão menos presentes, proporcionalmente, nos cargos sênior e de gestão, do que eles.
+
 ```{r}
 #Nível de cargo por gênero e nível de ensino
 df%>%
@@ -313,7 +314,7 @@ ggrepel::geom_label_repel(ggplot2::aes(label = scales::percent(Prop)),
                           fontface = 'bold', hjust=2,
                           position = ggplot2::position_stack(vjust = .5),
                           size=3.5) +
-  ggplot2::ggtitle('Nível de Cargo x Nível de Ensino x Gênero')+
+  ggplot2::ggtitle('Figura 6: Nível de Cargo x Nível de Ensino x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Oranges")+
   ggplot2::xlab('Gênero')+
@@ -330,7 +331,8 @@ ggrepel::geom_label_repel(ggplot2::aes(label = scales::percent(Prop)),
 
 Em contrapartida, as mulheres entrevistadas mostraram ser, de uma maneira geral, menos experientes, seja em relação à própria área de dados ou, principalmente, em relação a vivências anteriores em alguma outra área de TI.
 Em relação a área de dados, cerca de 35,7% das mulheres entrevistadas têm 4 ou mais anos de experiência, enquanto que 41,4% dos homens estão na mesma situação. 
-Em relação a experiências prévias em outra áreas de TI, a diferença é maior. Menos de 14% das mulheres entrevistadas possuem 4 ou mais anos de experiência, enquanto que, entre os homens, este percentual é superior a 25%. Mais de 49% das mulheres disseram não ter experiência prévia em TI, enquanto que quase 37% dos homens entrevistados disseram o mesmo. Isso é pelo fato das áreas de TI terem sido, durante muito tempo, quase que exclusivamente destinadas aos homens (e ainda o são, em certa medida). Um dado que mostra isso é o da pesquisa realizada pelo Cadastro Geral de Empregados e Desempregados (Caged), que aponta que a participação feminina na área cresceu 60% em 5 anos, passando de 27,9 mil mulheres, em 2014, para 44,5 mil, em 2019, no entanto, esse número ainda representa 20% dos profissionais de TI atuantes no mercado( https://www.gazetadopovo.com.br/vozes/gazzconecta-colab/mulheres-tecnologia-como-impulsionar-presenca-feminina-setor/ ).
+Em relação a experiências prévias em outra áreas de TI, a diferença é maior. Menos de 14% das mulheres entrevistadas possuem 4 ou mais anos de experiência, enquanto que, entre os homens, este percentual é superior a 25%. Mais de 49% das mulheres disseram não ter experiência prévia em TI, enquanto que quase 37% dos homens entrevistados disseram o mesmo.
+Isso se deve pelo fato das áreas de TI terem sido, durante muito tempo, quase que exclusivamente destinadas aos homens (e ainda são, em certa medida). Um dado que mostra isso é o da pesquisa realizada pelo Cadastro Geral de Empregados e Desempregados (Caged), que aponta que a participação feminina na área cresceu 60% em 5 anos, passando de 27,9 mil mulheres, em 2014, para 44,5 mil, em 2019, no entanto, esse número ainda representa 20% dos profissionais de TI atuantes no mercado( https://www.gazetadopovo.com.br/vozes/gazzconecta-colab/mulheres-tecnologia-como-impulsionar-presenca-feminina-setor/ ).
 
 ```{r}
 
@@ -350,7 +352,7 @@ plot1=SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Experiência na área de dados x Gênero')+
+  ggplot2::ggtitle('Figura 7: Experiência na área de dados x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "RdPu")+
   ggplot2::xlab('Gênero')+
@@ -378,7 +380,7 @@ plot2=SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Experiência na área de TI x Gênero')+
+  ggplot2::ggtitle('Figura 8: Experiência na área de TI x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "PuRd")+
   ggplot2::xlab('Gênero')+
@@ -417,7 +419,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Experiência na área de dados x Nível de Cargo x Gênero')+
+  ggplot2::ggtitle('Figura 9: Experiência na área de dados x Nível de Cargo x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "RdPu")+
   ggplot2::xlab('Gênero')+
@@ -446,7 +448,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Experiência na área de TI x Nível de Cargo x Gênero')+
+  ggplot2::ggtitle('Figura 10: Experiência na área de TI x Nível de Cargo x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "PuRd")+
   ggplot2::xlab('Gênero')+
@@ -483,7 +485,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Experiência na área de dados x Atuação x Gênero')+
+  ggplot2::ggtitle('Figura 11: Experiência na área de dados x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "RdPu")+
   ggplot2::xlab('Gênero')+
@@ -513,7 +515,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Experiência na área de TI x Atuação x Gênero')+
+  ggplot2::ggtitle('Figura 12: Experiência na área de TI x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "PuRd")+
   ggplot2::xlab('Gênero')+
@@ -529,9 +531,9 @@ df%>%
 
 ```
 
-Analisando as faixas de idade em cada nível de cargo, podemos observar, entre os cargos júnior, uma leve superioridade feminina, em relação aos homens entrevistados, em termos de concentração nas faixas de mais idade, o que pode ser mais um sinal de que a área de dados vem recebendo mulheres vindas de outras áreas de atuação fora do campo da TI, assim como a maior diversidade encontrada nos tipos de formação delas em relação aos homens. Já em relação aos cargos pleno e sênior, os homens é quem estão mais concentrados nas últimas faixas de idade. Entre os gestores, no entanto, há equilibrio nas idades entre os 2 gêneros.
+Analisando as faixas de idade em cada nível de cargo, podemos observar, entre os cargos júnior, uma leve "superioridade" feminina, em relação aos homens entrevistados, em termos de concentração nas faixas de mais idade, o que pode ser mais um sinal de que a área de dados vem recebendo mulheres vindas de outras áreas de atuação fora do campo da TI, assim como a maior diversidade encontrada nos tipos de formação delas em relação aos homens. Já em relação aos cargos pleno e sênior, os homens é quem estão mais concentrados nas últimas faixas de idade. Entre os gestores, no entanto, há equilibrio nas idades entre os 2 gêneros.
 
-Olhando as faixas de idade por função, entre os engenheiros de dados, os homens entrevistados ficaram bem mais concentrados nas idades mais avançadas do que as mulheres, sendo que quase 49% deles têm 35 anos ou mais, enquanto que, entre as engenheiras de dados, este valor é cerca de 28,5%. Aparentemente, algo acontece para que tal atuação tenha excassez de pessoas do gênero feminino com bagagem para assumir os cargos de sênior.
+Olhando as faixas de idade por função, entre os engenheiros de dados, os homens entrevistados ficaram bem mais concentrados nas idades mais avançadas do que as mulheres, sendo que quase 49% deles têm 35 anos ou mais, enquanto que, entre as engenheiras de dados, este valor é cerca de 28,5%. Aparentemente, algo acontece para que tal atuação tenha excassez de pessoas do gênero feminino com bagagem o suficiente para assumir os cargos de sênior.
 
 ```{r}
 
@@ -553,7 +555,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Faixa de Idade x Nível de Cargo x Gênero')+
+  ggplot2::ggtitle('Figura 13: Faixa de Idade x Nível de Cargo x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Reds")+
   ggplot2::xlab('Gênero')+
@@ -585,7 +587,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Faixa de Idade x Atuação x Gênero')+
+  ggplot2::ggtitle('Figura 14: Faixa de Idade x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Reds")+
   ggplot2::xlab('Gênero')+
@@ -599,11 +601,46 @@ df%>%
                  legend.title=ggplot2::element_blank())+
   ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 ```
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-Como dito anteriormente, de acordo com o relatório do State of Data Brazil 2021, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão.
-Isso poderia ter relação com a maior concentração, proporcionalmente, de mulheres na função que, segundo o relatório da State of Data Brazil 2021, é a que menos paga em todos os níveis de cargo (análise de dados). No entanto,   
-ao verificar as atuações, percebemos, entre os cientistas de dados, uma considerável desvantagem das mulheres em relação aos homens nas faixas salariais acima de R$ 16 mil (1,6% x 9,6%), rendimentos geralmente ganhos pelos profissionais sênior, o que indica que a maior proporção de analistas de dados mulheres não é o único fator. Esta diferença é ainda maior entre os engenheiros de dados, embora deva se dizer que ela, muito provavelmente, seja causada pela falta de engenheiras de dados sênior (na base de dados analisada, apenas 7 nesta condição). Apenas entre os analistas de dados é que parece haver equilibrio em termos de salário entre os 2 gêneros.
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Como dito anteriormente, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão. Em partes, isso pode ter relação com a maior concentração, proporcionalmente, de mulheres na função que, segundo o relatório da State of Data Brazil 2021 - Figura 28, é a que menos paga (análise de dados) em todos os níveis de cargo, principalmente no nível sênior, com mais de 61% das profissionais dete nível estando nessa função contra menos de 42% dos homens sênior, além da menor concentração delas no nível sênior da engenharia de dados (que, segundo a mesma análise do relatório, é a que melhor paga no nível sênior).
+
+```{r}
+
+#Atuação por gênero e Nível de cargo
+SoDfiltrado%>%
+  dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`, `('P2_g ', 'Nivel')`) %>%
+  dplyr::group_by(`('P1_b ', 'Genero')`,`('P2_g ', 'Nivel')`) %>%
+  dplyr::mutate(Prop = n/sum(n))%>%
+  dplyr::filter(`('P2_g ', 'Nivel')`!='Gestor')%>%
+  ggplot2::ggplot(
+    ggplot2::aes(x = `('P1_b ', 'Genero')`, y = Prop,
+                 fill = `('P4_a ', 'Atuacao')`)) +
+  ggplot2::geom_col( color="white",
+                     position = ggplot2::position_fill()) +
+  ggrepel::geom_label_repel(ggplot2::aes(
+    label = scales::percent(Prop)),
+    fontface = 'bold',
+    hjust=2,
+    position = ggplot2::position_stack(vjust = .5),
+    size=3.5) +
+  ggplot2::ggtitle('Figura 15: Atuação x Nível de Cargo x Gênero')+
+  ggplot2::theme_void()+
+  ggplot2::scale_fill_brewer(type = "seq", palette = "Spectral")+
+  ggplot2::xlab('Gênero')+
+  ggplot2::theme(legend.position="bottom",
+                 plot.title=ggplot2::element_text(face='bold.italic',
+                                                  hjust = 0.5, size=20),
+                 axis.text.y=ggplot2::element_blank(),
+                 axis.title.y=ggplot2::element_blank(),
+                 axis.title.x=ggplot2::element_blank(),
+                 axis.text.x =ggplot2::element_text(face='bold', size=12),
+                 legend.title=ggplot2::element_blank())+
+  ggplot2::facet_grid(~`('P2_g ', 'Nivel')`)
+
+```
+No entanto, ao verificar as faixas salariais em cada atuação, percebemos, entre os cientistas de dados, uma considerável desvantagem das mulheres em relação aos homens nas faixas salariais acima de R$ 16 mil (1,6% x 9,6%), rendimentos geralmente ganhos pelos profissionais sênior, o que indica que há outros fatores que causam isso.
+Esta diferença é ainda maior entre os engenheiros de dados, causada pela excassez de engenheiras de dados sênior, mostrada na Figura 15. Apenas entre os analistas de dados é que parece haver equilibrio em termos de salário entre os 2 gêneros.
+
 ```{r}
 
 #Faixa salarial por gênero e atuação
@@ -623,7 +660,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::labs(title = 'Faixa Salarial x Atuação x Gênero')+
+  ggplot2::labs(title = 'Figura 16: Faixa Salarial x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Greens")+
   ggplot2::xlab('Gênero')+
@@ -636,6 +673,7 @@ df%>%
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
   ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
+
 
 ```
 
@@ -661,7 +699,7 @@ df%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::labs(title = 'Faixa Salarial dos Engenheiros de Dados Júnior e Pleno x Gênero')+
+  ggplot2::labs(title = 'Figura 17: Faixa Salarial dos Engenheiros de Dados Júnior e Pleno x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Greens")+
   ggplot2::xlab('Gênero')+
