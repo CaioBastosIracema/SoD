@@ -972,3 +972,6 @@ SoDfiltrado%>%
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())+
   ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
+
+
+

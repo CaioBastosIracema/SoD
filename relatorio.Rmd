@@ -8,11 +8,10 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Não é novidade para ninguém que vivemos em uma sociedade que, há séculos, tende a favorecer os homens em relação às mulheres em diversos aspectos e no meio profissional não é diferente. Embora isto venha mudando bem lentamente de uns tempos para cá, infelizmente ainda é possível constatar muitos problemas oriundos da diferença de gênero. Por isso, estudos sobre o tópico se fazem necessárias se quisermos superar o problema em questão na sociedade e o "State of Data Brazil 2021", maior pesquisa sobre a área de dados no Brasil, permite uma interessante investigação sobre o tema no que é hoje uma das áreas mais modernas e aquecidas do mercado. Será que o fato da área de dados ser relativamente nova, com profundas transformações sofridas nos últimos 20 anos, faz com que esta seja mais igualitária em termos de gênero ou existem diferenças significativas no oferecimento das grandes oportunidades que esta área oferece para seus profissionais, dependendo de seu gênero.
+Não é novidade para ninguém que vivemos em uma sociedade que, há séculos, tende a favorecer os homens em relação às mulheres em diversos aspectos e no meio profissional não é diferente. Embora isto venha mudando paulatinamente, ainda é possível constatar muitos problemas oriundos da diferença de gênero. Por isso, estudos sobre o tópico se fazem necessários se quisermos superar o problema em questão na sociedade e o "State of Data Brazil 2021", maior pesquisa sobre a área de dados no Brasil, permite uma interessante investigação sobre o tema no que é hoje uma das áreas mais modernas e aquecidas do mercado.
+Como a diferença entre os gêneros está presente a área de dados, que sofreu profundas transformações nos últimos 20 anos e vem se mostrando cada vez mais como um dos campos que melhor oferecem oportunidades.
 
-
-Primeiro, é importante pontuar que, para as análises que serão mostradas a seguir, foram consideradas apenas pessoas cuja situação de trabalho era "Empreendedor ou Empregado (CNPJ)" e "Empregado (CLT)", pois o objetivo é investigar as possíveis diferenças de gênero no mundo corporativo, portanto, 
-pessoas que trabalham como freelancer, acadêmicos, servidor público foram excluídos, assim como estagiários (somente pessoas devidamente empregadas foram inclusas). Também foram deixadas de lado pessoas que se identificaram com a categoria de gênero "Outros" (o objetivo é investigar possiveis diferenças entre homens e mulheres e, além disso, apenas 5 pessoas entraram nesta categoria, o que complicaria comparações com os outros gêneros).
+Primeiro, é importante pontuar que, para as análises mostradas a seguir, foram consideradas apenas pessoas cuja situação de trabalho era "Empreendedor ou Empregado (CNPJ)" e "Empregado (CLT)", pois o objetivo é investigar as possíveis diferenças de gênero no mundo corporativo, portanto, pessoas que trabalham como freelancer, acadêmicos, servidor público foram excluídas, assim como estagiários (somente pessoas devidamente empregadas foram inclusas). Também foram deixadas de lado pessoas que se identificaram com a categoria de gênero "Outros" (o objetivo é investigar possiveis diferenças entre homens e mulheres e, além disso, apenas 5 pessoas entraram nesta categoria, o que complicaria comparações com os outros gêneros).
 
 ```{r}
 
@@ -29,7 +28,7 @@ SoD2021<-readr::read_csv('data/State of Data 2021 - Dataset - Pgina1.csv')
 #Além disso, reordeno as categorias das variáveis "nível de ensino",
 #"faixa salarial", "experiência na área de dados" e "experiência na área de TI"
 
-SoDfiltrado=SoD2021%>%dplyr::filter(
+df=SoD2021%>%dplyr::filter(
   `('P2_a ', 'Qual sua situação atual de trabalho?')`%in%c(
     'Empreendedor ou Empregado (CNPJ)', 'Empregado (CLT)') &
     `('P1_b ', 'Genero')`!='Outro' )%>%
@@ -50,14 +49,14 @@ SoDfiltrado=SoD2021%>%dplyr::filter(
 
 #Substituindo os valores "NA"s da variável "Nível do cargo", pelo valor "Gestor"
 
-SoDfiltrado$`('P2_g ', 'Nivel')`=replace(SoDfiltrado$`('P2_g ', 'Nivel')`,
-        is.na(SoDfiltrado$`('P2_g ', 'Nivel')`), 'Gestor')
+df$`('P2_g ', 'Nivel')`=replace(df$`('P2_g ', 'Nivel')`,
+        is.na(df$`('P2_g ', 'Nivel')`), 'Gestor')
 
 
 
 #Reordenando as categorias da variável "Nível do cargo"
 
-SoDfiltrado= SoDfiltrado%>%dplyr::mutate(
+df= df%>%dplyr::mutate(
   `('P2_g ', 'Nivel')`=forcats::lvls_reorder(
   as.factor(`('P2_g ', 'Nivel')`),
   c( 2, 3, 4, 1))
@@ -65,8 +64,8 @@ SoDfiltrado= SoDfiltrado%>%dplyr::mutate(
 
 #Criando a categoria "Acima de R$ 16.001/mês" em "faixa salarial"
 
-levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)[
-  levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)%in%c("de R$ 16.001/mês a R$ 20.000/mês",
+levels(df$`('P2_h ', 'Faixa salarial')`)[
+  levels(df$`('P2_h ', 'Faixa salarial')`)%in%c("de R$ 16.001/mês a R$ 20.000/mês",
                                                          "de R$ 20.001/mês a R$ 25.000/mês",
                                                          "de R$ 25.001/mês a R$ 30.000/mês",
                                                          "de R$ 30.001/mês a R$ 40.000/mês",
@@ -78,20 +77,20 @@ levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)[
 #Alterando o nome das variáveis "Experiência na área de dados" e
 # "Experiência na área de TI" para simplificar a manipulação
 
-colnames(SoDfiltrado)[c(20,21)]=c('Experiência na área de dados',
+colnames(df)[c(20,21)]=c('Experiência na área de dados',
                                   'Experiência na área de TI')
 
 
 #renomeando categorias das variáveis "Experiência na área de dados" e
 # "Experiência na área de TI"
 
-SoDfiltrado=SoDfiltrado%>%dplyr::mutate(`Experiência na área de dados`=forcats::lvls_revalue(
+df=df%>%dplyr::mutate(`Experiência na área de dados`=forcats::lvls_revalue(
   `Experiência na área de dados`, c('Sem experiência', 'Menos de 1 ano',
                                     '1 a 2 anos', '2 a 3 anos', '4 a 5 anos',
                                     '6 a 10 anos', 'Mais de 10 anos'))
 )
 
-SoDfiltrado=SoDfiltrado%>%dplyr::mutate(`Experiência na área de TI`=forcats::lvls_revalue(
+df=df%>%dplyr::mutate(`Experiência na área de TI`=forcats::lvls_revalue(
   `Experiência na área de TI`, c('Sem experiência', 'Menos de 1 ano',
                                     '1 a 2 anos', '2 a 3 anos', '4 a 5 anos',
                                     '6 a 10 anos', 'Mais de 10 anos'))
@@ -99,13 +98,13 @@ SoDfiltrado=SoDfiltrado%>%dplyr::mutate(`Experiência na área de TI`=forcats::l
 
 ```
 
-Logo de cara, a pesquisa mostra que a área de dados é amplamente dominada pelos homens, pois mais de 81% dos entrevistados (levando em conta as considerações feitas anteriormente) são homens e este número não é muito diferente do da versão da mesma pesquisa realizada em 2019, na ocasião chamada de "Data Hackers Survey 2019", onde quase 83% dos entrevistados (com as mesmas considerações) foram homens. Assim, imaginar eventuais desfavorecimentos sofridos pelas mulheres em uma área predominantemente masculina não é um absurdo. 
+Logo de cara, observamos que a área de dados é amplamente dominada pelos homens, pois mais de 81% dos entrevistados (levando em conta as considerações feitas anteriormente) são homens e este número não é muito diferente do da versão da mesma pesquisa realizada em 2019, na ocasião chamada de "Data Hackers Survey 2019", onde quase 83% dos entrevistados (com as mesmas considerações) foram homens. Assim, imaginar eventuais desfavorecimentos sofridos pelas mulheres em uma área predominantemente masculina não é um absurdo. 
 
 ```{r}
 
 #Pessoas por gênero -State of Data 2021
 
-SoDfiltrado%>%dplyr::count(`('P1_b ', 'Genero')`)%>%
+df%>%dplyr::count(`('P1_b ', 'Genero')`)%>%
   dplyr::mutate(perc = n/sum(n)*100)
 
 ###Importando a base de dados##########################
@@ -119,25 +118,25 @@ SoD2019<-readr::read_csv('data/datahackers-survey-2019-anonymous-responses.csv')
 #"Empregado (CLT)" da variável "Qual sua situação atual de trabalho?".
 #Excluo a categoria de gênero "Outros".
 
-SoDfiltrado2=SoD2019%>%dplyr::filter(
+df2=SoD2019%>%dplyr::filter(
   `('P10', 'job_situation')`%in%c(
     'Empreendedor ou Empregado (CNPJ)', 'Empregado (CTL)') &
     `('P2', 'gender')`!='Outro' )
 
 #Pessoas por gênero - datahackers-survey-2019
 
-SoDfiltrado2%>%dplyr::count(`('P2', 'gender')`)%>%
+df2%>%dplyr::count(`('P2', 'gender')`)%>%
   dplyr::mutate(perc = n/sum(n)*100)
 
 ```
 
-Quando investigamos as funções exercidas pelos profissionais da área de acordo com seu gênero, é possível perceber uma maior concentração das mulheres entrevistadas nos cargos de analise de dados, com 46% delas atuando como analistas, enquanto que apenas 33% dos homens entrevistados exercem tal função. Considerando as 4 principais atuações mostradas na pesquisa (análise de dados, ciência de dados, engenharia de dados e gestor), esta é a que, de uma maneira geral, pior paga, segundo o relatório do State of Data Brazil 2021. Além disso, é importante notar a menor presença relativa das mulheres entre os gestores (16,3% das mulheres entrevistadas são gestoras, enquanto que este percentual entre os homens é de 24,4%). Isso pode indicar uma dificuldade que o gênero feminino estaria enfrentando nas empresas: assumir cargos de maior responsabilidade e que requerem maior confiança por parte dos superiores.
+Investigando as funções exercidas pelos profissionais da área de acordo com seu gênero, é possível perceber uma maior concentração das mulheres entrevistadas nos cargos de analise de dados, com 46% delas atuando como analistas, enquanto que apenas 33% dos homens entrevistados exercem tal função. Considerando as 4 principais atuações mostradas na pesquisa (análise de dados, ciência de dados, engenharia de dados e gestor), esta é a que, de uma maneira geral, pior paga, segundo o relatório do State of Data Brazil 2021. Além disso, é importante notar a menor presença relativa das mulheres entre os gestores (16,3% das mulheres entrevistadas são gestoras, enquanto que este percentual entre os homens é de 24,4%). Isso pode indicar uma dificuldade que o gênero feminino estaria enfrentando nas empresas: assumir cargos de maior responsabilidade e que requerem maior confiança por parte dos superiores.
 Analisando os níveis de cargo em cada atuação separadamente, encontra-se certo equilibrio na função análise de dados. Já entre cientistas de dados, as mulheres são, proporcionalmente, mais presentes nos cargos júnior (34,4% x 22,9%), menos no nível pleno (35,9% x 47,5%) e igualmente presente no sênior (29% x 29%). O caso mais crítico, no entanto, é na atuação de engenharia de dados, onde apenas 12,5% das mulheres estão em cargos sênior contra 40,3% dos homens.
 
 ```{r}
 
 #Atuação por gênero
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P1_b ', 'Genero')`, `('P4_a ', 'Atuacao')`) %>%
   dplyr::group_by(`('P1_b ', 'Genero')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
@@ -152,7 +151,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero e Atuação')+
+  ggplot2::ggtitle('Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Spectral")+
   ggplot2::xlab('Gênero')+
@@ -166,7 +165,7 @@ SoDfiltrado%>%
                  legend.title=ggplot2::element_blank())
 
 #Nível de cargo por gênero e atuação
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`, `('P2_g ', 'Nivel')`) %>%
   dplyr::group_by(`('P1_b ', 'Genero')`,`('P4_a ', 'Atuacao')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
@@ -182,7 +181,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero e Nível de Ensino')+
+  ggplot2::ggtitle('Nível de Cargo x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Oranges")+
   ggplot2::xlab('Gênero')+
@@ -197,14 +196,14 @@ SoDfiltrado%>%
   ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
 ```
-O curioso é o fato das mulheres serem mais escolarizadas que os homens e quem diz isso é o IBGE. Os dados constam da segunda edição do estudo Estatísticas de gênero: indicadores sociais das mulheres no Brasil. Ele traz informações variadas sobre as condições de vida das brasileiras em 2019  https://epocanegocios.globo.com/Economia/noticia/2021/03/epoca-negocios-mulheres-sao-mais-instruidas-mas-ocupam-apenas-374-dos-cargos-gerenciais.html . O estudo ainda trás outros dados, como a maior dificuldade das mulheres em acessar cargos de chefia e gerência (corroborando com o gráfico mostrado anteriormente), além do rendimento médio inferior a 80% do rendimento dos homens (de acordo com o relatório do State of Data Brazil 2021, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão). 
+O curioso é o fato das mulheres serem mais escolarizadas que os homens e quem diz isso é o IBGE. Os dados constam da segunda edição do estudo "Estatísticas de gênero: indicadores sociais das mulheres no Brasil". Ele traz informações variadas sobre as condições de vida das brasileiras em 2019  https://epocanegocios.globo.com/Economia/noticia/2021/03/epoca-negocios-mulheres-sao-mais-instruidas-mas-ocupam-apenas-374-dos-cargos-gerenciais.html . O estudo ainda trás outros dados, como a maior dificuldade das mulheres em acessar cargos de chefia e gerência (corroborando com o gráfico mostrado anteriormente), além do rendimento médio inferior a 80% do rendimento dos homens (de acordo com o relatório do State of Data Brazil 2021, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão). 
 Também é possível verificar isso na área de dados, mais precisamente com a pesquisa State of Data Brazil 2021, onde, considerando as funções de análise de dados e engenharia de dados, a proporção das mulheres entrevistadas que não possuem o nível de pós-graduação é menor que a dos homens na mesma situação, já entre os cientistas de dados, há equilíbrio neste quesito, embora quando passamos a analisar pessoas com, pelo menos, o nível de graduação, a proporção das mulheres volta a ser superior.
-Isto também acontece entre os níveis de cargo, sendo que, considerando os profissionais sênior, entre as mulheres apenas 2,3% não possuem pós-graduação, enquanto que este percentual é de mais de 5% entre os homens. Já em relação aos gestores, no entanto, há praticamente um empate. Apenas 6,55% das mulheres não possuem pelo menos uma pós, contra 7% dos homens.
+Isto também acontece entre os níveis de cargo, sendo que, considerando os profissionais sênior, entre as mulheres apenas 22,1% não possuem pós-graduação, enquanto que este percentual é de mais de 35.7% entre os homens. Já em relação aos gestores, no entanto, há mais equilíbrio. Entre as gestoras entrevistadas apenas 31,15% não possuem pós-graduação, enquanto que este percentual é de cerca de 35.8% entre os homens.
 Além disso, em termos de áreas de formação, as mulheres entrevistadas estão menos concentradas no campo da TI e afins do que os homens (34,5% x 45,2%), resultando em uma maior diversidade de formaturas, estando proporcionalmente mais presente em outras áreas do conhecimento, como estatística, área de saúde, marketing, etc.
 
 ```{r}
 #Nível de ensino por gênero e atuação
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`, `('P1_h ', 'Nivel de Ensino')`)%>%
   dplyr::group_by(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
@@ -220,7 +219,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero e Nível de Ensino')+
+  ggplot2::ggtitle('Nível de Ensino x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "BuPu")+
   ggplot2::xlab('Gênero')+
@@ -235,7 +234,7 @@ SoDfiltrado%>%
   ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
 #Nível de ensino por gênero e Nível de cargo
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`, `('P1_h ', 'Nivel de Ensino')`)%>%
   dplyr::group_by(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
@@ -251,7 +250,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero e Nível de Ensino')+
+  ggplot2::ggtitle('Nível de Ensino x Nível de Cargo x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "BuPu")+
   ggplot2::xlab('Gênero')+
@@ -266,7 +265,7 @@ SoDfiltrado%>%
   ggplot2::facet_grid(~`('P2_g ', 'Nivel')`)
 
 #Formação por gênero
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P1_b ', 'Genero')`, `('P1_i ', 'Área de Formação')`) %>%
   dplyr::group_by(`('P1_b ', 'Genero')`)%>%dplyr::filter(
     !is.na(`('P1_i ', 'Área de Formação')`)) %>%
@@ -282,7 +281,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::labs(title = 'Pessoas Entrevistadas, por Gênero e Área de Formação')+
+  ggplot2::labs(title = 'Formação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Pastel1")+
   ggplot2::xlab('Gênero')+
@@ -297,10 +296,10 @@ SoDfiltrado%>%
 
 
 ```
-Entretanto, parece que o nível de escolaridade das mulheres "vale menos", pois considerando os 4 principais níveis escolares (bacharel, pós, mestrado e doutorado) as mulheres que os possuem estão menos presentes, proporcionalmente, nos cargos sênior e de gestão, do que os homens.
+Entretanto, parece que o nível de escolaridade das mulheres "vale menos" que o dos homens, pois considerando os 4 principais níveis escolares (bacharel, pós, mestrado e doutorado) as mulheres que os possuem estão menos presentes, proporcionalmente, nos cargos sênior e de gestão, do que eles.
 ```{r}
 #Nível de cargo por gênero e nível de ensino
-SoDfiltrado%>%
+df%>%
        dplyr::count(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`,
                     `('P1_h ', 'Nivel de Ensino')`)%>%
   dplyr::group_by(`('P1_h ', 'Nivel de Ensino')`,`('P1_b ', 'Genero')`) %>%
@@ -314,7 +313,7 @@ ggrepel::geom_label_repel(ggplot2::aes(label = scales::percent(Prop)),
                           fontface = 'bold', hjust=2,
                           position = ggplot2::position_stack(vjust = .5),
                           size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero e Nível de Ensino')+
+  ggplot2::ggtitle('Nível de Cargo x Nível de Ensino x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Oranges")+
   ggplot2::xlab('Gênero')+
@@ -336,7 +335,7 @@ Em relação a experiências prévias em outra áreas de TI, a diferença é mai
 ```{r}
 
 #experiência por gênero
-expsex=SoDfiltrado%>%
+plot1=SoDfiltrado%>%
   dplyr::count(`('P1_b ', 'Genero')`, `Experiência na área de dados`) %>%
   dplyr::group_by(`('P1_b ', 'Genero')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
@@ -351,7 +350,7 @@ expsex=SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero e Experiência na área de dados')+
+  ggplot2::ggtitle('Experiência na área de dados x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "RdPu")+
   ggplot2::xlab('Gênero')+
@@ -364,7 +363,7 @@ expsex=SoDfiltrado%>%
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())
 
-expsexTI=SoDfiltrado%>%
+plot2=SoDfiltrado%>%
   dplyr::count(`('P1_b ', 'Genero')`, `Experiência na área de TI`) %>%
   dplyr::group_by(`('P1_b ', 'Genero')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
@@ -379,7 +378,7 @@ expsexTI=SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero e Experiência na área de TI')+
+  ggplot2::ggtitle('Experiência na área de TI x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "PuRd")+
   ggplot2::xlab('Gênero')+
@@ -392,7 +391,7 @@ expsexTI=SoDfiltrado%>%
                  axis.text.x =ggplot2::element_text(face='bold', size=12),
                  legend.title=ggplot2::element_blank())
 
-gridExtra::grid.arrange(expsex, expsexTI)
+gridExtra::grid.arrange(plot1, plot2)
 
 ```
 
@@ -402,7 +401,7 @@ Em relação à experiência prévia em TI, a vantagem entre os entrevistados é
 ```{r}
 
 #Experiência por gênero e nível de cargo
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`,
                `Experiência na área de dados`) %>%
   dplyr::group_by(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`) %>%
@@ -418,8 +417,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero,
-                   Experiência na área de dados e Nível de cargo')+
+  ggplot2::ggtitle('Experiência na área de dados x Nível de Cargo x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "RdPu")+
   ggplot2::xlab('Gênero')+
@@ -433,7 +431,7 @@ SoDfiltrado%>%
                  legend.title=ggplot2::element_blank())+
   ggplot2::facet_grid(~`('P2_g ', 'Nivel')`)
 
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`, `Experiência na área de TI`) %>%
   dplyr::group_by(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
@@ -448,8 +446,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero,
-                   Experiência na área de TI e Nível de cargo')+
+  ggplot2::ggtitle('Experiência na área de TI x Nível de Cargo x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "PuRd")+
   ggplot2::xlab('Gênero')+
@@ -469,7 +466,7 @@ Considerando a experiência anterior em tI, em todas as funções, a vantagem, e
 ```{r}
 
 #Experiência por gênero e atuação
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`,
                `Experiência na área de dados`) %>%
   dplyr::group_by(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`) %>%
@@ -486,8 +483,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero,
-                   Experiência na área de dados e Atuação')+
+  ggplot2::ggtitle('Experiência na área de dados x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "RdPu")+
   ggplot2::xlab('Gênero')+
@@ -501,7 +497,7 @@ SoDfiltrado%>%
                  legend.title=ggplot2::element_blank())+
   ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`, `Experiência na área de TI`) %>%
   dplyr::group_by(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
@@ -517,8 +513,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero,
-                   Experiência na área de TI e Atuação')+
+  ggplot2::ggtitle('Experiência na área de TI x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "PuRd")+
   ggplot2::xlab('Gênero')+
@@ -541,7 +536,7 @@ Olhando as faixas de idade por função, entre os engenheiros de dados, os homen
 ```{r}
 
 #Faixas de idade por gênero e nível de cargo
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`,
                `('P1_a_a ', 'Faixa idade')`) %>%
   dplyr::group_by(`('P2_g ', 'Nivel')`,`('P1_b ', 'Genero')`) %>%
@@ -558,8 +553,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero,
-                   Faixa de idade e Nível de Cargo')+
+  ggplot2::ggtitle('Faixa de Idade x Nível de Cargo x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Reds")+
   ggplot2::xlab('Gênero')+
@@ -574,7 +568,7 @@ SoDfiltrado%>%
   ggplot2::facet_grid(~`('P2_g ', 'Nivel')`)
 
 #Faixas de idade por gênero e atuação
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`,
                `('P1_a_a ', 'Faixa idade')`) %>%
   dplyr::group_by(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`) %>%
@@ -591,8 +585,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::ggtitle('Pessoas Entrevistadas, por Gênero,
-                   Faixa de idade e Atuação')+
+  ggplot2::ggtitle('Faixa de Idade x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Reds")+
   ggplot2::xlab('Gênero')+
@@ -606,13 +599,15 @@ SoDfiltrado%>%
                  legend.title=ggplot2::element_blank())+
   ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 ```
-
-Como dito anteriormente, de acordo com o relatório do State of Data Brazil 2021, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão. Ao verificar as atuações, percebemos, entre os cientistas de dados, uma considerável desvantagem das mulheres em relação aos homens nas faixas salariais acima de R$ 16 mil (1,6% x 9,6%), rendimentos geralmente ganhos pelos profissionais sênior. Esta diferença é ainda maior entre os engenheiros de dados, embora deva se dizer que ela, muito provavelmente, seja causada pela falta de engenheiras de dados sênior (na base de dados analisada, apenas 7 nesta condição). Apenas entre os analistas de dados é que parece haver equilibrio em termos de salário entre os 2 gêneros.
-
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Como dito anteriormente, de acordo com o relatório do State of Data Brazil 2021, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão.
+Isso poderia ter relação com a maior concentração, proporcionalmente, de mulheres na função que, segundo o relatório da State of Data Brazil 2021, é a que menos paga em todos os níveis de cargo (análise de dados). No entanto,   
+ao verificar as atuações, percebemos, entre os cientistas de dados, uma considerável desvantagem das mulheres em relação aos homens nas faixas salariais acima de R$ 16 mil (1,6% x 9,6%), rendimentos geralmente ganhos pelos profissionais sênior, o que indica que a maior proporção de analistas de dados mulheres não é o único fator. Esta diferença é ainda maior entre os engenheiros de dados, embora deva se dizer que ela, muito provavelmente, seja causada pela falta de engenheiras de dados sênior (na base de dados analisada, apenas 7 nesta condição). Apenas entre os analistas de dados é que parece haver equilibrio em termos de salário entre os 2 gêneros.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ```{r}
 
 #Faixa salarial por gênero e atuação
-SoDfiltrado%>%
+df%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`, `('P2_h ', 'Faixa salarial')`) %>%
   dplyr::group_by(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`) %>%
   dplyr::mutate(Prop = n/sum(n))%>%
@@ -628,8 +623,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::labs(title = 'Pessoas Entrevistadas, por Gênero,
-                Faixa Salarial e Atuação')+
+  ggplot2::labs(title = 'Faixa Salarial x Atuação x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Greens")+
   ggplot2::xlab('Gênero')+
@@ -644,12 +638,13 @@ SoDfiltrado%>%
   ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
 ```
+
 Com a exclusão dos engenheiros de dados sênior, o equilíbrio salarial entre os gêneros, nesta função, aumenta consideravelmente, mas, ainda sim, quase 6% dos homens entrevistados se encontram nas faixas salariais acima dos 12 mil reais, enquanto que nenhuma mulher (0%) se encontra em tal situação.
 
 ```{r}
 
 #Faixa salarial por gênero, Engenheiros de Dados Júnior e Pleno
-SoDfiltrado%>%
+df%>%
   dplyr::filter(`('P4_a ', 'Atuacao')`%in%c('Engenharia de Dados') &
                   `('P2_g ', 'Nivel')`!='Sênior')%>%
   dplyr::count(`('P4_a ', 'Atuacao')`,`('P1_b ', 'Genero')`, `('P2_h ', 'Faixa salarial')`) %>%
@@ -666,8 +661,7 @@ SoDfiltrado%>%
     hjust=2,
     position = ggplot2::position_stack(vjust = .5),
     size=3.5) +
-  ggplot2::labs(title = 'Engenheiros de Dados Júnior e Pleno, por Gênero e
-                Faixa Salarial')+
+  ggplot2::labs(title = 'Faixa Salarial dos Engenheiros de Dados Júnior e Pleno x Gênero')+
   ggplot2::theme_void()+
   ggplot2::scale_fill_brewer(type = "seq", palette = "Greens")+
   ggplot2::xlab('Gênero')+
