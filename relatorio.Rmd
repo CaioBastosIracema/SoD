@@ -192,7 +192,7 @@ df%>%
   ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 
 ```
-O curioso é o fato das mulheres serem mais escolarizadas que os homens e quem diz isso é o IBGE. Os dados constam da segunda edição do estudo "Estatísticas de gênero: indicadores sociais das mulheres no Brasil". Ele traz informações variadas sobre as condições de vida das brasileiras em 2019  https://epocanegocios.globo.com/Economia/noticia/2021/03/epoca-negocios-mulheres-sao-mais-instruidas-mas-ocupam-apenas-374-dos-cargos-gerenciais.html . O estudo ainda trás outros dados, como a maior dificuldade das mulheres em acessar cargos de chefia e gerência (corroborando com o gráfico mostrado anteriormente), além do rendimento médio inferior a 80% do rendimento dos homens (de acordo com o relatório do State of Data Brazil 2021 - Figura 26, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão). 
+O curioso é o fato das mulheres serem mais escolarizadas que os homens e quem diz isso é o IBGE. Os dados constam da segunda edição do estudo "Estatísticas de gênero: indicadores sociais das mulheres no Brasil". Ele traz informações variadas sobre as condições de vida das brasileiras em 2019  https://epocanegocios.globo.com/Economia/noticia/2021/03/epoca-negocios-mulheres-sao-mais-instruidas-mas-ocupam-apenas-374-dos-cargos-gerenciais.html . O estudo ainda trás outros dados, como a maior dificuldade das mulheres em acessar cargos de chefia e gerência (corroborando com a Figura 1), além do rendimento médio inferior a 80% do rendimento dos homens (de acordo com o relatório do State of Data Brazil 2021 - Figura 26, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão). 
 Ao que tudo indica, também é possível verificar isso na área de dados, onde, considerando as funções de análise de dados e engenharia de dados, a proporção das mulheres entrevistadas que não possuem o nível de pós-graduação é menor que a dos homens na mesma situação, já entre os cientistas de dados, há mais equilíbrio.
 Isto também acontece entre os níveis de cargo, sendo que, considerando os profissionais sênior, entre as mulheres apenas 22,1% não possuem pós-graduação, enquanto que este percentual é de mais de 35.7% entre os homens. Já em relação aos gestores, no entanto, há mais equilíbrio. Entre as gestoras entrevistadas apenas 31,15% não possuem pós-graduação, enquanto que este percentual é de cerca de 35.8% entre os homens.
 Além disso, em termos de áreas de formação, as mulheres entrevistadas estão menos concentradas no campo da TI e afins do que os homens (34,5% x 45,2%), resultando em uma maior diversidade de formaturas, estando proporcionalmente mais presente em outras áreas do conhecimento, como estatística, área de saúde, marketing, etc.
@@ -327,8 +327,8 @@ ggrepel::geom_label_repel(ggplot2::aes(label = scales::percent(Prop)),
 
 Em contrapartida, as mulheres entrevistadas mostraram ser, de uma maneira geral, menos experientes, seja em relação à própria área de dados ou, principalmente, em relação a vivências anteriores em alguma outra área de TI.
 Em relação a área de dados, cerca de 35,7% das mulheres entrevistadas têm 4 ou mais anos de experiência, enquanto que 41,4% dos homens estão na mesma situação. 
-Em relação a experiências prévias em outra áreas de TI, a diferença é maior. Menos de 14% das mulheres entrevistadas possuem 4 ou mais anos de experiência, enquanto que, entre os homens, este percentual é superior a 25%. Mais de 49% das mulheres disseram não ter experiência prévia em TI, enquanto que quase 37% dos homens entrevistados disseram o mesmo.
-Isso se deve pelo fato das áreas de TI terem sido, durante muito tempo, quase que exclusivamente destinadas aos homens (e ainda são, em certa medida). Um dado que mostra isso é o da pesquisa realizada pelo Cadastro Geral de Empregados e Desempregados (Caged), que aponta que a participação feminina na área cresceu 60% em 5 anos, passando de 27,9 mil mulheres, em 2014, para 44,5 mil, em 2019, no entanto, esse número ainda representa 20% dos profissionais de TI atuantes no mercado( https://www.gazetadopovo.com.br/vozes/gazzconecta-colab/mulheres-tecnologia-como-impulsionar-presenca-feminina-setor/ ).
+Em relação a experiências prévias em outra áreas de TI, a diferença é maior. Menos de 14% das mulheres entrevistadas possuem 4 ou mais anos de experiência, enquanto que, entre os homens, este percentual é superior a 25%. Mais de 49% das mulheres disseram não ter experiência prévia em TI, enquanto que quase 37% dos homens entrevistados disseram o mesmo. Segundo o relatório do State of Data Brzil 2021 - Figura 6, a experiência prévia para cargos de maior senioridade é muito significativa, principalmente em cargos sênior e de gestão, logo, isso pode estar sendo um dificultador para elas alcançarem os cargos mais importantes.
+Tudo isso se deve pelo fato das áreas de TI terem sido, durante muito tempo, quase que exclusivamente destinadas aos homens (e ainda são, em certa medida). Um dado que mostra isso é o da pesquisa realizada pelo Cadastro Geral de Empregados e Desempregados (Caged), que aponta que a participação feminina na área cresceu 60% em 5 anos, passando de 27,9 mil mulheres, em 2014, para 44,5 mil, em 2019, no entanto, esse número ainda representa 20% dos profissionais de TI atuantes no mercado( https://www.gazetadopovo.com.br/vozes/gazzconecta-colab/mulheres-tecnologia-como-impulsionar-presenca-feminina-setor/ ).
 
 ```{r}
 
@@ -394,7 +394,7 @@ gridExtra::grid.arrange(plot1, plot2)
 ```
 
 Quando analisamos a experiência por nível de cargo, percebe-se, de uma maneira geral, um equilibrio, principalmente nos cargos pleno e sênior, além de uma leve vantagem para os homens entrevistados nos cargos júnior e de gestor. 
-Em relação à experiência prévia em TI, a vantagem entre os entrevistados é, como esperado, bem maior. 14% das mulheres Sênior disseram ter 4 ou mais anos de experiência contra 36,4% dos homens sênior, enquanto que, mais de 51% delas não tiveram experiência contra 33% deles. Entre os gestores, o "placar" é de 26,2% x 35,3% para os homens entre aqueles que possuem 4 ou mais anos de experiência prévia e 41% x 32,3% para as mulheres entre os sem experiência em TI.
+Em relação à experiência prévia em TI, a vantagem entre os entrevistados é, como esperado, bem maior. 14% das mulheres Sênior disseram ter 4 ou mais anos de experiência contra 36,4% dos homens sênior, enquanto que, mais de 51% delas não tiveram experiência contra 33% deles. Entre os gestores, o "placar" é de 26,2% x 35,3% para os homens entre aqueles que possuem 4 ou mais anos de experiência prévia e 41% x 32,3% para as mulheres entre os sem experiência em TI, sendo que, cargos de gestão exigem bastante experiência (o que pode explicar, em partes, a maior remuneração dos gestores homens).
 
 ```{r}
 
@@ -460,7 +460,9 @@ df%>%
 
 ```
 Entre os analistas e, principalmente, cientistas de dados, há equilíbrio entre os gêneros em termos de experiência na área. Já entre os engenheiros de dados, a vantagem é ampla dos homens -já que faltam engenheiras de dados sênior, que seriam as profissionais mais experientes (Figura 2) -, sendo 26,79% das mulheres possuindo o mínimo de 4 anos de vivência na área,  enquanto que os homens entrevistados aparecem com 41,3%.
-Considerando a experiência anterior em tI, em todas as funções, a vantagem, entre os entrevistados, é masculina, sendo que, entre os engenheiros de dados, 10,67% das mulheres possuem 6 ou mais anos de experiência enquanto que, entre os homens, este percentual é de mais de 25%.
+Considerando a experiência anterior em tI, em todas as funções, a vantagem, entre os entrevistados, é masculina, sendo que, entre os engenheiros de dados, 10,67% das mulheres possuem 6 ou mais anos de experiência, já que faltam engenheiras sênior enquanto que, entre os homens, este percentual é de mais de 25%. Aparentemente, por se tratar de uma função extremamente técnica, o que exigiría mais experiência em tI, há poucas engenheiras sênior. 
+Além disso, a função de análise de dados exige menos experiência em TI, o que pode explicar a maior "adesão" relativa feminina.
+
 ```{r}
 
 #Experiência por gênero e atuação
@@ -529,7 +531,7 @@ df%>%
 
 Analisando as faixas de idade em cada nível de cargo, podemos observar, entre os cargos júnior, uma leve "superioridade" feminina, em relação aos homens entrevistados, em termos de concentração nas faixas de mais idade, o que pode ser mais um sinal de que a área de dados vem recebendo mulheres vindas de outras áreas de atuação fora do campo da TI, assim como a maior diversidade encontrada nos tipos de formação delas em relação aos homens. Já em relação aos cargos pleno e sênior, os homens é quem estão mais concentrados nas últimas faixas de idade. Entre os gestores, no entanto, há equilibrio nas idades entre os 2 gêneros.
 
-Olhando as faixas de idade por função, entre os engenheiros de dados, os homens entrevistados ficaram bem mais concentrados nas idades mais avançadas do que as mulheres, sendo que quase 49% deles têm 35 anos ou mais, enquanto que, entre as engenheiras de dados, este valor é cerca de 28,5%. Aparentemente, algo acontece para que tal atuação tenha excassez de pessoas do gênero feminino com bagagem o suficiente para assumir os cargos de sênior (embora o nível de ensino das mulheres nesta função seja maior que o dos homens).
+Olhando as faixas de idade por função, entre os engenheiros de dados, os homens entrevistados ficaram bem mais concentrados nas idades mais avançadas do que as mulheres, sendo que quase 49% deles têm 35 anos ou mais, enquanto que, entre as engenheiras de dados, este valor é cerca de 28,5%. Isto reforça a tese de que há excassez de pessoas do gênero feminino com bagagem o suficiente para assumir os cargos de sênior (Figura 12), embora o nível de ensino das mulheres nesta função seja maior que o dos homens.
 
 ```{r}
 
@@ -598,7 +600,7 @@ df%>%
   ggplot2::facet_grid(~`('P4_a ', 'Atuacao')`)
 ```
 
-Como dito anteriormente, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão. Em partes, isso pode ter relação com a maior concentração de mulheres na função que, segundo o relatório da State of Data Brazil 2021 - Figura 28, é a que menos paga (análise de dados) em todos os níveis de cargo, principalmente no nível sênior, com mais de 61% das profissionais dete nível estando nessa função contra menos de 42% dos homens sênior, além da menor concentração delas no nível sênior da engenharia de dados (que, segundo a mesma análise do relatório, é a que melhor paga no nível sênior).
+Como dito anteriormente, as mulheres da área de dados estão ganhando menos nos cargos sênior e de gestão. Em partes, isso pode ter relação com a maior concentração de mulheres na função que, segundo o relatório da State of Data Brazil 2021 - Figura 28, é a que menos paga (análise de dados) em todos os níveis de cargo, principalmente no nível sênior, com mais de 61% das profissionais deste nível estando nessa função contra menos de 42% dos homens sênior, além da menor concentração delas no nível sênior da engenharia de dados (que, segundo a mesma análise do relatório, é a que melhor paga no nível sênior).
 Além disso, levando em conta as considerações feitas no início desta apresentação (apenas pessoas, dos gêneros masculino ou feminino, cuja situação de trabalho era "Empreendedor ou Empregado (CNPJ)" ou "Empregado (CLT)"), não há mudança significativa entre as diferenças de remuneração por gênero e nível de cargo.
 
 ```{r}
@@ -666,7 +668,7 @@ df%>%
 
 ```
 
-No entanto, ao verificar as faixas salariais em cada atuação, percebemos, entre os cientistas de dados, uma considerável desvantagem das mulheres em relação aos homens nas faixas salariais acima de R$ 16 mil (1,6% x 9,6%), rendimentos geralmente ganhos pelos profissionais sênior, o que indica que há outros fatores que causam isso.
+No entanto, ao verificar as faixas salariais em cada atuação, percebemos, entre os cientistas de dados, uma considerável desvantagem das mulheres em relação aos homens nas faixas salariais acima de R$ 16 mil (1,6% x 9,6%), rendimentos geralmente ganhos pelos profissionais sênior, o que indica que há outros fatores que causam isso, além da maior proporção de analistas de dados do gênero feminino.
 Esta diferença é ainda maior entre os engenheiros de dados, causada pela excassez de engenheiras de dados sênior, mostrada na Figura 15. Apenas entre os analistas de dados é que parece haver equilíbrio em termos de salário entre os 2 gêneros.
 Com a exclusão dos engenheiros de dados sênior, o balanceamento salarial entre os gêneros, nesta função, aumenta consideravelmente, mas, ainda sim, quase 6% dos homens entrevistados se encontram nas faixas salariais acima dos 12 mil reais, enquanto que nenhuma mulher (0%) se encontra em tal situação.
 
@@ -814,47 +816,5 @@ SoDfiltrado%>%
 
 ```
 
-Quando passamos a considerar apenas profissionais sem experiência prévia em TI, o balanceamento salarial entre os 2 gêneros aumenta consideravelmente, indicando que o fato das áreas de TI, incluindo a área de dados, terem sido praticamente restritas aos homens produz consequências ainda hoje.
+Mesmo sendo mais escolarizadas no geral, sendo que em nenhum dos níveis de cargo dá para dizer que os homens são mais escolarizados e o mesmo vale em relação às funções, incluindo a engenharia de dados, onde, elas são consideravelmente mais novas e menos experientes que os homens, as mulheres tendem a receber menos nos cargos mais importantes e em certos casos mais dificuldade em assumí-los. O que mais parece explicar isso é a acachapante "derrota" das mulheres para os homens em relação a experiências anteriores em TI, resultado de décadas de exclusão do gênero feminino nestas áreas. No entanto, é preciso investigar profundamente se esta maior experiência se traduz em maior produtividade dentro das empresas ou se é apenas mais uma desculpa para manter os maiores salários e cargos principais nas mãos dos mesmos de sempre.
 
-```{r}
-df%>%
-  dplyr::filter(`('P4_a ', 'Atuacao')`%notin%c('Outra', 'Gestor') & 
-                  `Experiência na área de TI`=='Sem experiência')%>%
-  dplyr::count(`('P1_b ', 'Genero')`, `('P2_h ', 'Faixa salarial')`) %>%
-  dplyr::group_by(`('P1_b ', 'Genero')`) %>%
-  dplyr::mutate(Prop = n/sum(n))%>%
-  ggplot2::ggplot(
-    ggplot2::aes(x = `('P1_b ', 'Genero')`, y = Prop,
-                 fill = `('P2_h ', 'Faixa salarial')`)) +
-  ggplot2::geom_col( color="white",
-                     position = ggplot2::position_fill()) +
-  ggrepel::geom_label_repel(ggplot2::aes(
-    label = scales::percent(Prop)),
-    fontface = 'bold',
-    hjust=2,
-    position = ggplot2::position_stack(vjust = .5),
-    size=3.5) +
-  ggplot2::labs(title = 'Figura 21: Faixa Salarial x Gênero, Sem experência em TI')+
-  ggplot2::theme_void()+
-  ggplot2::scale_fill_brewer(type = "seq", palette = "YlOrRd")+
-  ggplot2::xlab('Gênero')+
-  ggplot2::theme(legend.position="bottom",
-                 plot.title=ggplot2::element_text(face='bold.italic',
-                                                  hjust = 0.5, size=20),
-                 axis.text.y=ggplot2::element_blank(),
-                 axis.title.y=ggplot2::element_blank(),
-                 axis.title.x=ggplot2::element_blank(),
-                 axis.text.x =ggplot2::element_text(face='bold', size=12),
-                 legend.title=ggplot2::element_blank())
-
-```
-
-
-A maior concentração de mulheres na atuação de análise de dados, função, entre as analisadas neste relatório, com os rendimentos mais baixos, embora tenha alguma influência e, com toda a certeza, deva ser melhor investigada, não explica totalmente o fato das mulheres sênior ganharem menos que os homens sênior, pois, além da proporção de engenheiras de dados sênior consideravelmente menor que a dos homens na mesma situação, as cientistas de dados sênior do gênero feminino parecem ganhar menos que os do masculino. Além disso, o gênero feminino, em relação ao masculino, além de estar menos concentrado nos cargos de gestão, possui menores salários, de uma maneira geral. O fator que mais parece explicar esse fenômeno é a considerável derrota das mulheres para os homens em termos de experiências prévias na área de TI, resultado de décadas de exclusão do gênero feminino neste tipo de área. Provavelmente, isso explica, em partes, o por quê das mulheres terem dificuldade em assumir cargos de gerencia ou de liderança, resultando na permanência dos maiores salários nas mãos homens, embora outros fatores devam existir, pois este não é um problema exclusivo da área de dados ou de qualquer outra relacionada a TI, como indica o estudo do IBGE anteriormente mencionado.
-
-É preciso destacar a vitória das mulheres em termos de nível de escolaridade que, segundo o IBGE, também não é exclusividade da área dos dados.
-Em nenhum dos níveis de cargo da para dizer que os homens são mais escolarizados e o mesmo vale em relação às funções, incluindo a engenharia de dados, onde, mesmo elas sendo mais novas e menos experientes que os homens, possuem, pelo menos, o nível de  pós-graduação em maior proporção que os homens. No entanto, mulheres têm mais dificuldade em assumir cargos mais importantes que homens do mesmo nível escolar.
-
-A menor proporção de mulheres no nível sênior na engenharia de dados também precisa ser investigada. É possível que a falta de experiência prévia em TI tenha alguma influência nisso, mas, aparentemente, há escassez de mulheres mais experientes, de uma maneira geral, entre as engenheiras, pois elas possuem, consideravelmente, menos experiência na área de dados em comparação aos engenheiros (o que não acontece dentro das outras atuações), além das mulheres serem mais novas que os homens na engenharia de dados.
-
-Dominada pelo gênero masculino, com mais de 80% de seus profissionais se indentificando com este gênero, a área de dados, embora ofereça ótimas oportunidades para as mulheres, com muitas ganhando mais de R$ 8 mil de salário, parece refletir os problemas oriundos da desigualdade de gênero que o Brasil enfrenta. 
