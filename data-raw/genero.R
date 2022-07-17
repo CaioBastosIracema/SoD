@@ -45,7 +45,8 @@ SoDfiltrado= SoDfiltrado%>%dplyr::mutate(
   c( 2, 3, 4, 1))
   )
 
-#Criando a categoria "Acima de R$ 16.001/mês" em "faixa salarial"
+#Criando as categorias "Acima de R$ 16.001/mês" e Menos de R$2000/mês
+#em "faixa salarial"
 
 levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)[
   levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)%in%c("de R$ 16.001/mês a R$ 20.000/mês",
@@ -54,6 +55,19 @@ levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)[
                                                          "de R$ 30.001/mês a R$ 40.000/mês",
                                                          "Acima de R$ 40.001/mês")] <- "Acima de R$ 16.001/mês"
 
+levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)[
+  levels(SoDfiltrado$`('P2_h ', 'Faixa salarial')`)%in%c("Menos de R$ 1.000/mês",
+                                                         "de R$ 1.001/mês a R$ 2.000/mês")] <- "Menos de R$ 2.000/mês"
+
+#Renomeando faixa salarial
+SoDfiltrado=SoDfiltrado%>%dplyr::mutate(`('P2_h ', 'Faixa salarial')`=forcats::lvls_revalue(
+  `('P2_h ', 'Faixa salarial')`, c('- R$ 2.000/mês', 'R$2.001 - 3000/mês',
+                                     'R$3.001 - 4000/mês', 'R$4.001 - 6000/mês',
+                                   'R$6.001 - 8000/mês', 'R$8.001 - 12000/mês',
+                                     '12.001/mês a R$ 16.000', '+ R$ 16.000/mês'))
+)
+
+extrafont::loadfonts(device = "win")
 
 ##Experiência#############
 
@@ -77,6 +91,14 @@ SoDfiltrado=SoDfiltrado%>%dplyr::mutate(`Experiência na área de TI`=forcats::l
   `Experiência na área de TI`, c('Sem experiência', 'Menos de 1 ano',
                                     '1 a 2 anos', '2 a 3 anos', '4 a 5 anos',
                                     '6 a 10 anos', 'Mais de 10 anos'))
+)
+
+#Renomeando área de formação
+SoDfiltrado=SoDfiltrado%>%dplyr::mutate(`('P1_i ', 'Área de Formação')`=forcats::lvls_revalue(
+  `('P1_i ', 'Área de Formação')`, c('Saúde/Biologia e afins', 'Ciências Sociais',
+                                 'TI', 'Finanças e afins', 'Estatística/ Matemática',
+                                 'Marketing/Jornalismo e afins', 'Outras',
+                                 'Engenharias','Química / Física'))
 )
 
 ###############################################################################
@@ -127,12 +149,13 @@ ggplot2::ggplot(
    ggplot2::theme_void()+ggplot2::xlab('Gênero')+
    ggplot2::theme(legend.position="bottom",
                   plot.title=ggplot2::element_text(face='bold.italic',
-                                                   hjust = 0.5, size=20),
+                                                   hjust = 0.5, size=13),
                   axis.text.y=ggplot2::element_blank(),
                   axis.title.y=ggplot2::element_blank(),
                   axis.title.x=ggplot2::element_blank(),
-                  axis.text.x =ggplot2::element_text(face='bold', size=12),
-                  legend.title=ggplot2::element_blank())
+                  axis.text.x =ggplot2::element_text(face='bold', size=10),
+                  legend.title=ggplot2::element_blank(),
+                  text=ggplot2::element_text(  family="serif"))
 
 #Atuação por gênero
 SoDfiltrado%>%
